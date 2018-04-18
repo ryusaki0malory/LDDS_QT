@@ -28,13 +28,15 @@ DEFINES += \
 SOURCES += \
         main.cpp \
     view.cpp \
-    windows.cpp \
-    mainpage.cpp
+    mainPage.cpp \
+    tools.cpp \
+    familyPage.cpp
 
 HEADERS += \
     view.hpp \
-    windows.hpp \
-    mainpage.hpp
+    mainPage.hpp \
+    tools.hpp \
+    familyPage.hpp
 
 FORMS +=
 
