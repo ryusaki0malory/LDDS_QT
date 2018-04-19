@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Pictures/trashcan_empty_alt.png</file>
+    </qresource>
+</RCC>

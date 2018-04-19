@@ -2,10 +2,9 @@
 
 FamilyPage::FamilyPage(QWidget *parent) : QWidget(parent)
 {
-    setLayout(getLayoutWindow(parent));
 }
 
-QLayout* FamilyPage::getLayoutWindow(QWidget *parent)
+void FamilyPage::setLayoutWindow(QWidget *parent)
 {
 
     QGridLayout *gridLayout = new QGridLayout(parent);
@@ -14,7 +13,7 @@ QLayout* FamilyPage::getLayoutWindow(QWidget *parent)
     connect(retaillers, SIGNAL(clicked()), this, SLOT(emitLoadMAIN_PAGE()));
     gridLayout->addWidget(retaillers, 0, 0);
 
-    return(gridLayout);
+    setLayout(gridLayout);
 }
 
 //SLOTS

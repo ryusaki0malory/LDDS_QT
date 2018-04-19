@@ -10,10 +10,11 @@ class FamilyPage : public QWidget
 {
     Q_OBJECT
 private:
-    QLayout* getLayoutWindow(QWidget *view);
+
 
 public:
     explicit FamilyPage(QWidget *parent = nullptr);
+    void setLayoutWindow(QWidget *view);
 
 signals:
     void loadPageParent(const Tools_LDDS::windowsName_t);
