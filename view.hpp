@@ -18,11 +18,11 @@ class View : public QMainWindow
 
 private:
     windows_t _window; // enum of windows
+    bool    loadPage(const Tools_LDDS::windowsName_t);// load the visual of this View
 
 public:
     explicit View();
     ~View();
-    bool    loadPage(const Tools_LDDS::windowsName_t);// load the visual of this View
 
 
 public slots:

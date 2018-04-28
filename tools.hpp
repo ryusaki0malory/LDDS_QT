@@ -14,9 +14,9 @@ namespace Tools_LDDS {
         ,PRODUCT_PAGE
         ,PRODUCTION_PAGE
         ,PAYMENT_PAGE
-        ,SELL_PAGE
+        ,SALE_PAGE
         ,BILL_PAGE
-        ,CLIENT_PAGE
+        ,CUSTOMER_PAGE
         ,PARAMETER_PAGE
         ,STOCK_PAGE
         ,ACCOUNT_PAGE
