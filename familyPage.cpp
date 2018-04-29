@@ -24,7 +24,29 @@ void FamilyPage::setLayoutWindow(QWidget *parent)
     setLayout(mainLayout);
 }
 
+void    FamilyPage::setMessage(const status_t status, const QString message)
+{
+    this->LabMessage->setText(message);
+    this->LabMessage->setFont(QFont("Times", 15, QFont::Bold));
+    switch (status) {
+        case SUCCESS:
+            this->LabMessage->setStyleSheet("QLabel { color : green; }");
+            break;
+        case FAIL:
+            this->LabMessage->setStyleSheet("QLabel { color : red; }");
+            break;
+        case INFORMATION:
+            this->LabMessage->setStyleSheet("QLabel { color : blue; }");
+            break;
+        default:
+            break;
+    }
+}
+
 //setAttibutes
+
+
+
 void   FamilyPage::setFrameAttributes(QFrame* frame, const QString name = "")
 {
     frame->setObjectName(name);
@@ -137,17 +159,34 @@ void FamilyPage::rowSelected(const QItemSelection& selectionUp, const QItemSelec
 
 void FamilyPage::addFamily()
 {
-    this->LabMessage->setText("Please insert new family");
-    this->LabMessage->setFont(QFont("Times", 15, QFont::Bold));
-    this->LabMessage->setStyleSheet("QLabel { color : green; }");
-
+    this->setMessage(SUCCESS, "Please insert new family");
     this->Li_ID->setText("");
     this->Li_name->setText("");
 }
 
 void FamilyPage::deleteFamily()
 {
-
+    if (this->Li_ID->text().toStdString() != "")
+    {
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "deleted", "Do you want to delete the family '" + this->Li_name->text() + "'?",
+                                        QMessageBox::Yes|QMessageBox::No);
+        if (reply == QMessageBox::Yes) {
+            if (this->db->deleteFamily(this->Li_ID->text().toInt()))
+            {
+                this->setMessage(SUCCESS, "family deleted");
+            }
+            else
+            {
+                this->setMessage(FAIL, "Error occured");
+            }
+          } else {
+            this->setMessage(FAIL, "");
+          }
+    }
+    //actualise
+    this->modeleFamily->setRowCount(0);
+    this->db->getFamily(this->modeleFamily);
 }
 
 void FamilyPage::validFamily()
@@ -157,14 +196,44 @@ void FamilyPage::validFamily()
     {
         if (this->Li_name->text().toStdString() != "")
         {
-            this->db->addFamily(this->Li_name->text());
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, "add", "Do you want to add the new family '" + this->Li_name->text() + "'?",
+                                            QMessageBox::Yes|QMessageBox::No);
+            if (reply == QMessageBox::Yes) {
+                if (this->db->addFamily(this->Li_name->text()))
+                {
+                    this->setMessage(SUCCESS, "new family added");
+                }
+                else
+                {
+                    this->setMessage(FAIL, "Error occured");
+                }
+              } else {
+                this->setMessage(FAIL, "");
+              }
         }
     }
     else
     {
         if (this->Li_name->text().toStdString() != "")
         {
-            this->db->modifyFamily(this->Li_ID->text(), this->Li_name->text());
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, "update", "Do you want to update the family '" + this->Li_name->text() + "'?",
+                                            QMessageBox::Yes|QMessageBox::No);
+            if (reply == QMessageBox::Yes) {
+                if (this->db->updateFamily(this->Li_ID->text().toInt(), this->Li_name->text()))
+                {
+                    this->setMessage(SUCCESS, "family modified");
+                }
+                else
+                {
+                    this->setMessage(FAIL, "Error occured");
+                }
+            }
+            else
+            {
+                this->setMessage(FAIL, "");
+            }
         }
     }
     //actualise
@@ -174,7 +243,9 @@ void FamilyPage::validFamily()
 
 void FamilyPage::cancelFamily()
 {
-
+    this->Li_ID->setText("");
+    this->Li_name->setText("");
+    this->setMessage(FAIL, "");
 }
 
 void FamilyPage::emitLoadMAIN_PAGE()

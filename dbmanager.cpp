@@ -72,7 +72,6 @@ bool DbManager::addFamily(const QString &family)
     if(query.exec())
     {
         success = true;
-        qDebug() << "addFamily success!";
     }
     else
     {
@@ -81,3 +80,43 @@ bool DbManager::addFamily(const QString &family)
 
        return (success);
 }
+
+bool DbManager::updateFamily(const int &ID, const QString &family)
+{
+    bool success = false;
+    QSqlQuery query;
+
+    query.prepare("UPDATE " + TABLE_FAMILY + " SET " + KEY_NAME_FAMILY + " = :" + KEY_NAME_FAMILY + " WHERE " + KEY_ID_FAMILY + " = :" + KEY_ID_FAMILY );
+    query.bindValue(":"+ KEY_NAME_FAMILY, family);
+    query.bindValue(":"+ KEY_ID_FAMILY, ID);
+    if(query.exec())
+    {
+        success = true;
+    }
+    else
+    {
+        qWarning() << "updateFamily error :" << query.lastError();
+    }
+
+       return (success);
+}
+
+bool DbManager::deleteFamily(const int &ID)
+{
+    bool success = false;
+    QSqlQuery query;
+
+    query.prepare("DELETE FROM " + TABLE_FAMILY + " WHERE " + KEY_ID_FAMILY + " = :" + KEY_ID_FAMILY );
+    query.bindValue(":"+ KEY_ID_FAMILY, ID);
+    if(query.exec())
+    {
+        success = true;
+    }
+    else
+    {
+        qWarning() << "deleteFamily error :" << query.lastError();
+    }
+
+       return (success);
+}
+

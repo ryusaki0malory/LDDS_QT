@@ -25,8 +25,11 @@ private:
 public:
     DbManager();
     ~DbManager();
+    //family
     bool addFamily(const QString &family);
     void getFamily(QStandardItemModel *modele);
+    bool updateFamily(const int &ID, const QString &family);
+    bool deleteFamily(const int &ID);
 
 };
 

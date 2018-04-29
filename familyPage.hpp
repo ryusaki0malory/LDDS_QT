@@ -21,8 +21,17 @@ class FamilyPage : public QWidget
 {
     Q_OBJECT
 private:
+    typedef enum status
+    {
+        SUCCESS
+        ,FAIL
+        ,INFORMATION
+
+    } status_t;
+
     void setFrameAttributes(QFrame* frame, const QString name);
     void setButtonAttributes(QPushButton* button, const QString toolTip);
+    void setMessage(const status_t status, const QString message);
     QFrame* getFrameHead();
     QFrame* getFrameList();
     QFrame* getFrameBottom();
