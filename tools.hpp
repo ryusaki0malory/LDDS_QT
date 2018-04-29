@@ -1,6 +1,8 @@
 #ifndef TOOLS_HPP
 #define TOOLS_HPP
 
+#include <QString>
+
 namespace Tools_LDDS {
 
     typedef enum windowsName

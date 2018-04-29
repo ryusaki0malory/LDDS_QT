@@ -4,7 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += widgets
+QT       += \
+            widgets \
+            sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,13 +32,15 @@ SOURCES += \
     view.cpp \
     mainPage.cpp \
     tools.cpp \
-    familyPage.cpp
+    familyPage.cpp \
+    dbmanager.cpp
 
 HEADERS += \
     view.hpp \
     mainPage.hpp \
     tools.hpp \
-    familyPage.hpp
+    familyPage.hpp \
+    dbmanager.hpp
 
 FORMS +=
 
