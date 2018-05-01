@@ -1,29 +1,27 @@
-#ifndef FAMILY_HPP
-#define FAMILY_HPP
+#ifndef TYPEARTICLESPAGE_HPP
+#define TYPEARTICLESPAGE_HPP
 
 #include <QWidget>
-#include <QVBoxLayout>
 #include <QGroupBox>
-#include <QGridLayout>
 #include <QPushButton>
-#include <QLineEdit>
-#include <QFormLayout>
 #include <QLabel>
-#include <QStandardItemModel>
 #include <QTableView>
-#include <QHeaderView>
-#include <QTableWidgetItem>
+#include <QDoubleSpinBox>
+#include <QVBoxLayout>
+#include <QFormLayout>
 #include <QMessageBox>
+#include <QHeaderView>
+#include <QLineEdit>
 #include "tools.hpp"
 #include "dbmanager.hpp"
 
-class FamilyPage : public QWidget
+class TypeArticlesPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit FamilyPage(DbManager &newDb, QWidget *parent = nullptr);
-    ~FamilyPage();
+    explicit TypeArticlesPage(DbManager &newDb, QWidget *parent = nullptr);
+    ~TypeArticlesPage();
     void setLayoutWindow();
 
 private:
@@ -58,6 +56,8 @@ private:
     //bottom
     QLineEdit *Li_name;
     QLineEdit *Li_ID;
+    QDoubleSpinBox *Li_qte;
+    QDoubleSpinBox *Li_baseUnit;
     QPushButton *But_valid;
 
 
@@ -66,10 +66,10 @@ signals:
 
 public slots:
     void emitLoadMAIN_PAGE();
-    void addFamily();
-    void deleteFamily();
-    void validFamily();
+    void addItem();
+    void deleteItem();
+    void validItem();
     void rowSelected(const QItemSelection&, const QItemSelection&);
 };
 
-#endif // FAMILY_HPP
+#endif // TYPEARTICLESPAGE_HPP

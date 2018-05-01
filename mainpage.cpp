@@ -1,9 +1,8 @@
-#include "mainPage.hpp"
+#include "mainpage.hpp"
 
-MainPage::MainPage(QWidget *parent) : QWidget(parent)
+MainPage::MainPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newDb)
 {
 
-    setLayout(getLayoutWindow(parent));
 }
 
  MainPage::~MainPage()
@@ -11,12 +10,10 @@ MainPage::MainPage(QWidget *parent) : QWidget(parent)
 
  }
 
- void   MainPage::setFrameAttributes(QFrame* frame, const QString name = "")
+ void   MainPage:: setGroupBoxAttributes(QGroupBox* groupBox, const QString name = "")
  {
-     frame->setObjectName(name);
-     frame->setStyleSheet("#"+name+" { border: 2px solid pink; }");
-     frame->setFrameShape(QFrame::StyledPanel);
-
+     groupBox->setObjectName(name);
+     groupBox->setStyleSheet("#"+name+" { border: 2px solid pink; }");
  }
 
  void    MainPage::setButtonAttributes(QPushButton* button, const QString toolTip = "")
@@ -25,147 +22,164 @@ MainPage::MainPage(QWidget *parent) : QWidget(parent)
     button->setFont(QFont("Times", 18, QFont::Bold));
  }
 
-
- QFrame* MainPage::getFrameProducts()
+ void MainPage::setLogo()
  {
-     QFrame *frameProducts = new QFrame(this);
-     this->setFrameAttributes(frameProducts, "Products");
-     QGridLayout *LayoutProducts = new QGridLayout(frameProducts);
+    QString path = this->db.getPathLogo();
+    if (QString::compare(path,QString()) != 0)
+    {
+        QImage image;
+        bool valid = image.load(path);
 
-     QPushButton *products = new QPushButton("Products", frameProducts);
+        if (valid)
+        {
+            //image = image.scaledToWidth(this->_logo->width(), Qt::SmoothTransformation);
+            this->_logo->setPixmap(QPixmap::fromImage(image));
+        }
+    }
+ }
+
+ //frame
+ void MainPage::createFrameProducts()
+ {
+     this->productGroupBox = new QGroupBox(tr("Products"));
+     this->setGroupBoxAttributes(productGroupBox, "Products");
+     QGridLayout *LayoutProducts = new QGridLayout(productGroupBox);
+
+     QPushButton *products = new QPushButton("Products");
      this->setButtonAttributes(products, "Gestion of Products");
      connect(products, SIGNAL(clicked()), this, SLOT(emitLoadPRODUCT_PAGE()));
      LayoutProducts->addWidget(products, 0, 0);
 
-     QPushButton *production = new QPushButton("Production", frameProducts);
+     QPushButton *production = new QPushButton("Production");
      this->setButtonAttributes(production,"Gestion of Products");
      connect(production, SIGNAL(clicked()), this, SLOT(emitLoadPRODUCTION_PAGE()));
      LayoutProducts->addWidget(production, 0, 1);
 
-     frameProducts->setLayout(LayoutProducts);
-     return (frameProducts);
+     this->productGroupBox->setLayout(LayoutProducts);
+
  }
 
- QFrame* MainPage::getFrameGestion()
+ void MainPage::createFrameGestion()
  {
-     QFrame *frameGestion = new QFrame(this);
-     this->setFrameAttributes(frameGestion, "Gestion");
-     QGridLayout *LayoutGestion = new QGridLayout(frameGestion);
+     this->gestionGroupBox = new QGroupBox(tr("Gestion"));
+     this->setGroupBoxAttributes(gestionGroupBox, "Gestion");
+     QGridLayout *LayoutGestion = new QGridLayout(gestionGroupBox);
 
-     QPushButton *stocks = new QPushButton("Stocks", frameGestion);
+     QPushButton *stocks = new QPushButton("Stocks");
      this->setButtonAttributes(stocks,"Gestion of stocks");
      connect(stocks, SIGNAL(clicked()), this, SLOT(emitLoadSTOCK_PAGE()));
      LayoutGestion->addWidget(stocks, 0, 0);
 
-     QPushButton *account = new QPushButton("Account", frameGestion);
+     QPushButton *account = new QPushButton("Account");
      this->setButtonAttributes(account,"Gestion of account");
      connect(account, SIGNAL(clicked()), this, SLOT(emitLoadSTOCK_PAGE()));
      LayoutGestion->addWidget(account, 0, 1);
 
-     QPushButton *parameters = new QPushButton("Parameters", frameGestion);
+     QPushButton *parameters = new QPushButton("Parameters");
      this->setButtonAttributes(parameters,"Gestion of parameters");
      connect(parameters, SIGNAL(clicked()), this, SLOT(emitLoadPARAMETER_PAGE()));
      LayoutGestion->addWidget(parameters, 0, 2);
 
-     frameGestion->setLayout(LayoutGestion);
-     return (frameGestion);
+      this->gestionGroupBox->setLayout(LayoutGestion);
  }
 
- QFrame* MainPage::getFrameSales()
+ void MainPage::createFrameSales()
  {
-     QFrame *frameSales = new QFrame(this);
-     this->setFrameAttributes(frameSales, "Sales");
-     QGridLayout *LayoutSales = new QGridLayout(frameSales);
+     this->salesGroupBox = new QGroupBox(tr("Sales"));
+     this->setGroupBoxAttributes(salesGroupBox, "Sales");
+     QGridLayout *LayoutSales = new QGridLayout(salesGroupBox);
 
-     QPushButton *sales = new QPushButton("Sales", frameSales);
+     QPushButton *sales = new QPushButton("Sales");
      this->setButtonAttributes(sales,"Gestion of sales");
      connect(sales, SIGNAL(clicked()), this, SLOT(emitLoadSALE_PAGE()));
      LayoutSales->addWidget(sales, 0, 0);
 
-     QPushButton *bills = new QPushButton("Bills", frameSales);
+     QPushButton *bills = new QPushButton("Bills");
      this->setButtonAttributes(bills,"Gestion of bills");
      connect(bills, SIGNAL(clicked()), this, SLOT(emitLoadBILL_PAGE()));
      LayoutSales->addWidget(bills, 0, 1);
 
-     frameSales->setLayout(LayoutSales);
-     return (frameSales);
+      this->salesGroupBox->setLayout(LayoutSales);
  }
 
- QFrame* MainPage::getFrameCustomers()
+ void MainPage::createFrameCustomers()
  {
-     QFrame *frameCustomers = new QFrame(this);
-     this->setFrameAttributes(frameCustomers, "Customers");
-     QGridLayout *LayoutCustomers = new QGridLayout(frameCustomers);
+     this->customersGroupBox = new QGroupBox(tr("Customers"));
+     this->setGroupBoxAttributes(customersGroupBox, "Customers");
+     QGridLayout *LayoutCustomers = new QGridLayout(customersGroupBox);
 
-     QPushButton *customers = new QPushButton("Customers", frameCustomers);
+     QPushButton *customers = new QPushButton("Customers");
      this->setButtonAttributes(customers,"Gestion of customers");
      connect(customers, SIGNAL(clicked()), this, SLOT(emitLoadCUSTOMER_PAGE()));
      LayoutCustomers->addWidget(customers, 0, 0);
 
-     QPushButton *payment = new QPushButton("Payment method", frameCustomers);
+     QPushButton *payment = new QPushButton("Payment method");
      this->setButtonAttributes(payment,"Gestion of payment method");
      connect(payment, SIGNAL(clicked()), this, SLOT(emitLoadPAYMENT_PAGE()));
      LayoutCustomers->addWidget(payment, 0, 1);
 
-     frameCustomers->setLayout(LayoutCustomers);
-     return (frameCustomers);
+      this->customersGroupBox->setLayout(LayoutCustomers);
  }
 
- QFrame* MainPage::getFrameArtickes()
+ void MainPage::createFrameArtickes()
  {
-     QFrame *frameArticles = new QFrame(this);
-     this->setFrameAttributes(frameArticles, "Articles");
-     QGridLayout *LayoutArticles = new QGridLayout(frameArticles);
+     this->articleGroupBox = new QGroupBox(tr("Articles"));
+     this->setGroupBoxAttributes(articleGroupBox, "Articles");
 
+     QGridLayout *LayoutArticles = new QGridLayout(articleGroupBox);
      //buttons
-     QPushButton *retaillers = new QPushButton("Retaillers", frameArticles);
+     QPushButton *retaillers = new QPushButton("Retaillers");
      this->setButtonAttributes(retaillers, "Gestion of retaillers");
      connect(retaillers, SIGNAL(clicked()), this, SLOT(emitLoadRETAILLER_PAGE()));
      LayoutArticles->addWidget(retaillers, 0, 0);
 
-     QPushButton *family = new QPushButton("Family", frameArticles);
+     QPushButton *family = new QPushButton("Family");
      this->setButtonAttributes(family,"Gestion of families");
      connect(family, SIGNAL(clicked()), this, SLOT(emitLoadFAMILY_PAGE()));
      LayoutArticles->addWidget(family, 0 ,1);
 
-     QPushButton *article = new QPushButton("Articles", frameArticles);
+     QPushButton *article = new QPushButton("Articles");
      this->setButtonAttributes(article,"Gestion of articles");
      connect(article, SIGNAL(clicked()), this, SLOT(emitLoadARTICLE_PAGE()));
      LayoutArticles->addWidget(article, 1, 0);
 
-     QPushButton *articlesType = new QPushButton("Types of article", frameArticles);
+     QPushButton *articlesType = new QPushButton("Types of article");
      this->setButtonAttributes(articlesType,"Gestion of articles type");
      connect(articlesType, SIGNAL(clicked()), this, SLOT(emitLoadTYPE_ARTICLES_PAGE()));
      LayoutArticles->addWidget(articlesType, 1, 1);
 
-     QPushButton *baseProducts = new QPushButton("Bases of product", frameArticles);
+     QPushButton *baseProducts = new QPushButton("Bases of product");
      this->setButtonAttributes(baseProducts,"Gestion of bases unit");
      connect(baseProducts, SIGNAL(clicked()), this, SLOT(emitLoadBASE_PAGE()));
      LayoutArticles->addWidget(baseProducts, 2, 0);
 
-     QPushButton *changeLogo = new QPushButton("Change logo", frameArticles);
+     QPushButton *changeLogo = new QPushButton("Change logo");
      this->setButtonAttributes(changeLogo,"Change the logo");
      connect(changeLogo, SIGNAL(clicked()), this, SLOT(defineLogo()));
      LayoutArticles->addWidget(changeLogo, 2, 1);
 
      //logo
-     this->_logo = new QLabel(frameArticles);
+     this->_logo = new QLabel();
      LayoutArticles->addWidget(this->_logo, 0, 3, 3, 3);
+     this->setLogo();
 
-
-     frameArticles->setLayout(LayoutArticles);
-     return (frameArticles);
+     this->articleGroupBox->setLayout(LayoutArticles);
  }
 
- QLayout* MainPage::getLayoutWindow(QWidget *parent)
+ void MainPage::setLayoutWindow()
  {
-     QVBoxLayout *mainLayout = new QVBoxLayout(parent);
-     mainLayout->addWidget(getFrameArtickes());
-     mainLayout->addWidget(getFrameProducts());
-     mainLayout->addWidget(getFrameCustomers());
-     mainLayout->addWidget(getFrameSales());
-     mainLayout->addWidget(getFrameGestion());
-     return(mainLayout);
+     QVBoxLayout *mainLayout = new QVBoxLayout();
+     this->createFrameArtickes();
+     mainLayout->addWidget(this->articleGroupBox);
+     this->createFrameProducts();
+     mainLayout->addWidget(this->productGroupBox);
+     this->createFrameCustomers();
+     mainLayout->addWidget(this->customersGroupBox);
+     this->createFrameSales();
+     mainLayout->addWidget(this->salesGroupBox);
+     this->createFrameGestion();
+     mainLayout->addWidget(this->gestionGroupBox);
+     setLayout(mainLayout);
  }
 
  //SLOTS

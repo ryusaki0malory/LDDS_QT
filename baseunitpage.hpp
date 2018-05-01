@@ -1,29 +1,27 @@
-#ifndef FAMILY_HPP
-#define FAMILY_HPP
+#ifndef BASEUNITPAGE_HPP
+#define BASEUNITPAGE_HPP
 
 #include <QWidget>
-#include <QVBoxLayout>
+
+#include <QWidget>
 #include <QGroupBox>
-#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QTableView>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QHeaderView>
 #include <QFormLayout>
 #include <QLabel>
-#include <QStandardItemModel>
-#include <QTableView>
-#include <QHeaderView>
-#include <QTableWidgetItem>
-#include <QMessageBox>
+#include <QDoubleSpinBox>
 #include "tools.hpp"
 #include "dbmanager.hpp"
 
-class FamilyPage : public QWidget
+class BaseUnitPage : public QWidget
 {
     Q_OBJECT
-
 public:
-    explicit FamilyPage(DbManager &newDb, QWidget *parent = nullptr);
-    ~FamilyPage();
+    explicit BaseUnitPage(DbManager &newDb, QWidget *parent = nullptr);
+    ~BaseUnitPage();
     void setLayoutWindow();
 
 private:
@@ -58,6 +56,7 @@ private:
     //bottom
     QLineEdit *Li_name;
     QLineEdit *Li_ID;
+    QDoubleSpinBox *Li_mult;
     QPushButton *But_valid;
 
 
@@ -66,10 +65,10 @@ signals:
 
 public slots:
     void emitLoadMAIN_PAGE();
-    void addFamily();
-    void deleteFamily();
-    void validFamily();
+    void addItem();
+    void deleteItem();
+    void validItem();
     void rowSelected(const QItemSelection&, const QItemSelection&);
 };
 
-#endif // FAMILY_HPP
+#endif // BASEUNITPAGE_HPP

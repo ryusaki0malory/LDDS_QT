@@ -1,29 +1,27 @@
-#ifndef FAMILY_HPP
-#define FAMILY_HPP
+#ifndef RETAILLERPAGE_HPP
+#define RETAILLERPAGE_HPP
 
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QGroupBox>
-#include <QGridLayout>
 #include <QPushButton>
-#include <QLineEdit>
-#include <QFormLayout>
 #include <QLabel>
-#include <QStandardItemModel>
+#include <QLineEdit>
+#include <QTextEdit>
 #include <QTableView>
-#include <QHeaderView>
-#include <QTableWidgetItem>
+#include <QFormLayout>
 #include <QMessageBox>
+#include <QHeaderView>
 #include "tools.hpp"
 #include "dbmanager.hpp"
 
-class FamilyPage : public QWidget
+class RetaillerPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit FamilyPage(DbManager &newDb, QWidget *parent = nullptr);
-    ~FamilyPage();
+    explicit RetaillerPage(DbManager &newDb, QWidget *parent = nullptr);
+    ~RetaillerPage();
     void setLayoutWindow();
 
 private:
@@ -58,6 +56,7 @@ private:
     //bottom
     QLineEdit *Li_name;
     QLineEdit *Li_ID;
+    QTextEdit *Li_comment;
     QPushButton *But_valid;
 
 
@@ -66,10 +65,10 @@ signals:
 
 public slots:
     void emitLoadMAIN_PAGE();
-    void addFamily();
-    void deleteFamily();
-    void validFamily();
+    void addItem();
+    void deleteItem();
+    void validItem();
     void rowSelected(const QItemSelection&, const QItemSelection&);
 };
 
-#endif // FAMILY_HPP
+#endif // RETAILLERPAGE_HPP

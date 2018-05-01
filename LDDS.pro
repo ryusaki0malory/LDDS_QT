@@ -19,7 +19,8 @@ TEMPLATE = app
 # deprecated API in order to know how to port your code away from it.
 DEFINES += \
             QT_DEPRECATED_WARNINGS \
-           "VERSION=\"\\\"0.1.0\\\"\""
+           "VERSION=\"\\\"0.1.1\\\"\"" \
+           "BDD_VERSION=\"\\\"0.1.1\\\"\""
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -33,14 +34,20 @@ SOURCES += \
     mainPage.cpp \
     tools.cpp \
     familyPage.cpp \
-    dbmanager.cpp
+    dbmanager.cpp \
+    retaillerpage.cpp \
+    typearticlespage.cpp \
+    baseunitpage.cpp
 
 HEADERS += \
     view.hpp \
     mainPage.hpp \
     tools.hpp \
     familyPage.hpp \
-    dbmanager.hpp
+    dbmanager.hpp \
+    retaillerpage.hpp \
+    typearticlespage.hpp \
+    baseunitpage.hpp
 
 FORMS +=
 

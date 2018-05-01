@@ -1,26 +1,19 @@
 #include "familyPage.hpp"
 
-FamilyPage::FamilyPage(QWidget *parent) : QWidget(parent)
+FamilyPage::FamilyPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newDb)
 {
-    this->db = new DbManager();
-    setLayoutWindow(parent);
 }
 
 FamilyPage::~FamilyPage()
 {
-    if (this->db != NULL)
-    {
-        delete(this->db);
-    }
 }
 
-void FamilyPage::setLayoutWindow(QWidget *parent)
+void FamilyPage::setLayoutWindow()
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout(parent);
-    mainLayout->addWidget(getFrameHead());
-    mainLayout->addWidget(getFrameList());
-    mainLayout->addWidget(getFrameBottom());
-
+    QVBoxLayout *mainLayout = new QVBoxLayout();
+    mainLayout->addWidget(getHead());
+    mainLayout->addWidget(getList());
+    mainLayout->addWidget(getBottom());
     setLayout(mainLayout);
 }
 
@@ -43,15 +36,19 @@ void    FamilyPage::setMessage(const status_t status, const QString message)
     }
 }
 
+void FamilyPage::cleanItem()
+{
+    this->Li_ID->setText("");
+    this->Li_name->setText("");
+}
+
 //setAttibutes
 
-
-
-void   FamilyPage::setFrameAttributes(QFrame* frame, const QString name = "")
+void   FamilyPage::setGroupBoxAttributes(QGroupBox* groupBox, const QString name = "")
 {
-    frame->setObjectName(name);
-    frame->setStyleSheet("#"+name+" { border: 1px solid blue; }");
-    frame->setFrameShape(QFrame::StyledPanel);
+    groupBox->setObjectName(name);
+    groupBox->setStyleSheet("#"+name+" { border: 1px solid blue; }");
+    groupBox->setTitle("");
 }
 
 void    FamilyPage::setButtonAttributes(QPushButton* button, const QString toolTip = "")
@@ -59,96 +56,93 @@ void    FamilyPage::setButtonAttributes(QPushButton* button, const QString toolT
    button->setToolTip(toolTip);
    button->setFont(QFont("Times", 18, QFont::Bold));
 }
+
 //Frames
-QFrame* FamilyPage::getFrameBottom()
+QGroupBox* FamilyPage::getBottom()
 {
-    QFrame *frameBottom = new QFrame(this);
-    this->setFrameAttributes(frameBottom, "Products");
-    QHBoxLayout *LayoutBottom = new QHBoxLayout(frameBottom);
+    QGroupBox *groupBox = new QGroupBox(tr("Family"));
+    this->setGroupBoxAttributes(groupBox, "Family");
+    QHBoxLayout *Layout = new QHBoxLayout(groupBox);
 
     this->Li_name = new QLineEdit;
     this->Li_ID = new QLineEdit;
     this->Li_ID->setReadOnly(true);
-    QFormLayout *formLayout = new QFormLayout(frameBottom);
+    this->Li_ID->setStyleSheet("background: grey");
+    QFormLayout *formLayout = new QFormLayout();
     formLayout->addRow(tr("&Nom de la famille d'article"), Li_name);
     formLayout->addRow(tr("ID famille article"), Li_ID);
-    LayoutBottom->addLayout(formLayout);
+    Layout->addLayout(formLayout);
 
-    this->But_valid = new QPushButton("Valid", frameBottom);
+    this->But_valid = new QPushButton("Valid");
     this->setButtonAttributes(But_valid, "Valid modifications");
     connect(But_valid, SIGNAL(clicked()), this, SLOT(validFamily()));
-    LayoutBottom->addWidget(But_valid);
+    Layout->addWidget(But_valid);
 
-    this->But_cancel = new QPushButton("Cancel", frameBottom);
-    this->setButtonAttributes(But_cancel, "Cancel modifications");
-    connect(But_cancel, SIGNAL(clicked()), this, SLOT(cancelFamily()));
-    LayoutBottom->addWidget(But_cancel);
-
-    frameBottom->setLayout(LayoutBottom);
-    return (frameBottom);
+    groupBox->setLayout(Layout);
+    return (groupBox);
 }
 
-QFrame* FamilyPage::getFrameList()
+QGroupBox* FamilyPage::getList()
 {
-    QFrame *frameList = new QFrame(this);
-    this->setFrameAttributes(frameList, "Products");
-    QVBoxLayout *LayoutList = new QVBoxLayout(frameList);
+    QGroupBox *groupBox = new QGroupBox(tr("Family"));
+    this->setGroupBoxAttributes(groupBox, "Family");
+    QVBoxLayout *Layout = new QVBoxLayout(groupBox);
 
-    this->label = new QLabel(tr("Famille article"));
+    this->label = new QLabel(tr("Family article"));
     label->setFont(QFont("Times", 20, QFont::Bold));
-    LayoutList->addWidget(label);
+    Layout->addWidget(label);
 
     //The list
-    this->modeleFamily = new QStandardItemModel(0, 2);
+    this->modele = new QStandardItemModel(0, 2);
     QStringList lst;
     lst << "Id" << "Family";
-    this->modeleFamily->setHorizontalHeaderLabels(lst);
-    this->db->getFamily(this->modeleFamily);
+    this->modele->setHorizontalHeaderLabels(lst);
+    this->db.getFamily(this->modele);
     this->table = new QTableView;
-    table->setModel(modeleFamily);
+    table->setModel(modele);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     connect(table->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(rowSelected(const QItemSelection&, const QItemSelection&)));
-    LayoutList->addWidget(table);
+    Layout->addWidget(table);
 
     this->LabMessage = new QLabel();
-    LayoutList->addWidget(LabMessage);
-
-    frameList->setLayout(LayoutList);
-    return (frameList);
+    Layout->addWidget(LabMessage);
+    groupBox->setLayout(Layout);
+    return (groupBox);
 }
 
-QFrame* FamilyPage::getFrameHead()
+QGroupBox* FamilyPage::getHead()
 {
-    QFrame *frameHead = new QFrame(this);
-    this->setFrameAttributes(frameHead, "Products");
-    QHBoxLayout *LayoutHead = new QHBoxLayout(frameHead);
+    QGroupBox *groupBox = new QGroupBox(tr("Family"));
+    this->setGroupBoxAttributes(groupBox, "Family");
 
-    this->But_return = new QPushButton("Return", frameHead);
+    QHBoxLayout *Layout = new QHBoxLayout(groupBox);
+
+    this->But_return = new QPushButton("Return");
     this->setButtonAttributes(But_return, "Return to menu");
     connect(But_return, SIGNAL(clicked()), this, SLOT(emitLoadMAIN_PAGE()));
-    LayoutHead->addWidget(But_return);
+    Layout->addWidget(But_return);
 
-    this->But_add = new QPushButton("Add", frameHead);
+    this->But_add = new QPushButton("Add");
     this->setButtonAttributes(But_add, "Add new family");
     connect(But_add, SIGNAL(clicked()), this, SLOT(addFamily()));
-    LayoutHead->addWidget(But_add);
+    Layout->addWidget(But_add);
 
-    this->but_delete = new QPushButton("Delete", frameHead);
+    this->but_delete = new QPushButton("Delete");
     this->setButtonAttributes(but_delete, "Delete selected family");
     connect(but_delete, SIGNAL(clicked()), this, SLOT(deleteFamily()));
-    LayoutHead->addWidget(but_delete);
+    Layout->addWidget(but_delete);
 
-    frameHead->setLayout(LayoutHead);
-    return (frameHead);
+    groupBox->setLayout(Layout);
+    return (groupBox);
 }
 
 //SLOTS
 void FamilyPage::rowSelected(const QItemSelection& selectionUp, const QItemSelection& selectionDown)
 {
-
-    QModelIndexList indexes = table->selectionModel()->selection().indexes();
+    (void)selectionUp;
+    (void)selectionDown;
     //QMessageBox::information(this,"", QString::number(indexes.at(0).row()));
 
     QItemSelectionModel *select = table->selectionModel();
@@ -160,8 +154,7 @@ void FamilyPage::rowSelected(const QItemSelection& selectionUp, const QItemSelec
 void FamilyPage::addFamily()
 {
     this->setMessage(SUCCESS, "Please insert new family");
-    this->Li_ID->setText("");
-    this->Li_name->setText("");
+     this->cleanItem();
 }
 
 void FamilyPage::deleteFamily()
@@ -172,7 +165,7 @@ void FamilyPage::deleteFamily()
         reply = QMessageBox::question(this, "deleted", "Do you want to delete the family '" + this->Li_name->text() + "'?",
                                         QMessageBox::Yes|QMessageBox::No);
         if (reply == QMessageBox::Yes) {
-            if (this->db->deleteFamily(this->Li_ID->text().toInt()))
+            if (this->db.deleteFamily(this->Li_ID->text().toInt()))
             {
                 this->setMessage(SUCCESS, "family deleted");
             }
@@ -185,8 +178,9 @@ void FamilyPage::deleteFamily()
           }
     }
     //actualise
-    this->modeleFamily->setRowCount(0);
-    this->db->getFamily(this->modeleFamily);
+    this->modele->setRowCount(0);
+    this->db.getFamily(this->modele);
+     this->cleanItem();
 }
 
 void FamilyPage::validFamily()
@@ -200,7 +194,7 @@ void FamilyPage::validFamily()
             reply = QMessageBox::question(this, "add", "Do you want to add the new family '" + this->Li_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
-                if (this->db->addFamily(this->Li_name->text()))
+                if (this->db.addFamily(this->Li_name->text()))
                 {
                     this->setMessage(SUCCESS, "new family added");
                 }
@@ -221,7 +215,7 @@ void FamilyPage::validFamily()
             reply = QMessageBox::question(this, "update", "Do you want to update the family '" + this->Li_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
-                if (this->db->updateFamily(this->Li_ID->text().toInt(), this->Li_name->text()))
+                if (this->db.updateFamily(this->Li_ID->text().toInt(), this->Li_name->text()))
                 {
                     this->setMessage(SUCCESS, "family modified");
                 }
@@ -237,15 +231,9 @@ void FamilyPage::validFamily()
         }
     }
     //actualise
-    this->modeleFamily->setRowCount(0);
-    this->db->getFamily(this->modeleFamily);
-}
-
-void FamilyPage::cancelFamily()
-{
-    this->Li_ID->setText("");
-    this->Li_name->setText("");
-    this->setMessage(FAIL, "");
+    this->modele->setRowCount(0);
+    this->db.getFamily(this->modele);
+     this->cleanItem();
 }
 
 void FamilyPage::emitLoadMAIN_PAGE()

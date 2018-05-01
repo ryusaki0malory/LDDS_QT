@@ -3,32 +3,42 @@
 
 #include <QWidget>
 #include <QHBoxLayout>
-#include <QFrame>
+#include <QGroupBox>
 #include <QLabel>
 #include <QFileDialog>
 #include <QGridLayout>
 #include <QPushButton>
 #include <QMessageBox>
 #include "tools.hpp"
+#include "dbmanager.hpp"
 
 class MainPage : public QWidget
 {
      Q_OBJECT
-private:
-    QLayout* getLayoutWindow(QWidget *view);
-    void setButtonAttributes(QPushButton* button, const QString toolTip);
-    void setFrameAttributes(QFrame* frame, const QString name);
-    QFrame* getFrameArtickes();
-    QFrame* getFrameProducts();
-    QFrame* getFrameCustomers();
-    QFrame* getFrameSales();
-    QFrame* getFrameGestion();
-
-    QLabel *_logo;
 
 public:
-    explicit MainPage(QWidget *parent = nullptr);
+    explicit MainPage(DbManager &newDb, QWidget *parent = nullptr);
     ~MainPage();
+    void setLayoutWindow(); // init main layout
+
+private:
+    void setButtonAttributes(QPushButton* button, const QString toolTip);
+    void setGroupBoxAttributes(QGroupBox* groupBox, const QString name);
+    void createFrameArtickes();
+    void createFrameProducts();
+    void createFrameCustomers();
+    void createFrameSales();
+    void createFrameGestion();
+    void setLogo();
+
+    QGroupBox *articleGroupBox;
+    QGroupBox *productGroupBox;
+    QGroupBox *customersGroupBox;
+    QGroupBox *salesGroupBox;
+    QGroupBox *gestionGroupBox;
+
+    QLabel *_logo;
+    DbManager &db;
 
 signals:
     void loadPageParent(const Tools_LDDS::windowsName_t);
