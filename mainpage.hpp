@@ -10,20 +10,20 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include "tools.hpp"
-#include "dbmanager.hpp"
+#include "dbhandler.hpp"
 
 class MainPage : public QWidget
 {
      Q_OBJECT
 
 public:
-    explicit MainPage(DbManager &newDb, QWidget *parent = nullptr);
+    explicit MainPage(DbHandler &newDb, QWidget *parent = nullptr);
     ~MainPage();
     void setLayoutWindow(); // init main layout
 
 private:
     void setButtonAttributes(QPushButton* button, const QString toolTip);
-    void setGroupBoxAttributes(QGroupBox* groupBox, const QString name);
+    void setGroupBoxAttributes();
     void createFrameArtickes();
     void createFrameProducts();
     void createFrameCustomers();
@@ -38,7 +38,7 @@ private:
     QGroupBox *gestionGroupBox;
 
     QLabel *_logo;
-    DbManager &db;
+    DbHandler &db;
 
 signals:
     void loadPageParent(const Tools_LDDS::windowsName_t);

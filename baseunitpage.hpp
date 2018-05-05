@@ -12,15 +12,17 @@
 #include <QHeaderView>
 #include <QFormLayout>
 #include <QLabel>
+#include <QMessageBox>
 #include <QDoubleSpinBox>
+#include <QStandardItemModel>
 #include "tools.hpp"
-#include "dbmanager.hpp"
+#include "dbhandler.hpp"
 
 class BaseUnitPage : public QWidget
 {
     Q_OBJECT
 public:
-    explicit BaseUnitPage(DbManager &newDb, QWidget *parent = nullptr);
+    explicit BaseUnitPage(DbHandler &newDb, QWidget *parent = nullptr);
     ~BaseUnitPage();
     void setLayoutWindow();
 
@@ -40,7 +42,7 @@ private:
     QGroupBox* getHead();
     QGroupBox* getList();
     QGroupBox* getBottom();
-    DbManager &db;
+    DbHandler &db;
 
     //Head
     QPushButton *But_return;

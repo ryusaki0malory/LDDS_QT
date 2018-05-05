@@ -12,15 +12,17 @@
 #include <QMessageBox>
 #include <QHeaderView>
 #include <QLineEdit>
+#include <QComboBox>
+#include <QMap>
 #include "tools.hpp"
-#include "dbmanager.hpp"
+#include "dbhandler.hpp"
 
 class TypeArticlesPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit TypeArticlesPage(DbManager &newDb, QWidget *parent = nullptr);
+    explicit TypeArticlesPage(DbHandler &newDb, QWidget *parent = nullptr);
     ~TypeArticlesPage();
     void setLayoutWindow();
 
@@ -40,7 +42,8 @@ private:
     QGroupBox* getHead();
     QGroupBox* getList();
     QGroupBox* getBottom();
-    DbManager &db;
+    void    loadQComboBox();
+    DbHandler &db;
 
     //Head
     QPushButton *But_return;
@@ -57,7 +60,7 @@ private:
     QLineEdit *Li_name;
     QLineEdit *Li_ID;
     QDoubleSpinBox *Li_qte;
-    QDoubleSpinBox *Li_baseUnit;
+    QComboBox *Li_baseUnit;
     QPushButton *But_valid;
 
 

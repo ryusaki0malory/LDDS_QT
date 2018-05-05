@@ -8,7 +8,7 @@
 #include "retaillerpage.hpp"
 #include "typearticlespage.hpp"
 #include "baseunitpage.hpp"
-#include "dbmanager.hpp"
+#include "dbhandler.hpp"
 #include "tools.hpp"
 
 class View : public QMainWindow
@@ -26,10 +26,10 @@ class View : public QMainWindow
 private:
     windows_t _window; // enum of windows or page
     bool    loadPage(const Tools_LDDS::windowsName_t);// load the visual of this View
-    DbManager &db;
+    DbHandler &db;
 
 public:
-    explicit View(DbManager&);
+    explicit View(DbHandler&);
     ~View();
 
 

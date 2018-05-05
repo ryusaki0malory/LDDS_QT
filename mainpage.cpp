@@ -1,8 +1,7 @@
 #include "mainpage.hpp"
 
-MainPage::MainPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newDb)
+MainPage::MainPage(DbHandler &newDb, QWidget *parent) : QWidget(parent), db(newDb)
 {
-
 }
 
  MainPage::~MainPage()
@@ -10,16 +9,21 @@ MainPage::MainPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newD
 
  }
 
- void   MainPage:: setGroupBoxAttributes(QGroupBox* groupBox, const QString name = "")
+ void   MainPage:: setGroupBoxAttributes()
  {
-     groupBox->setObjectName(name);
-     groupBox->setStyleSheet("#"+name+" { border: 2px solid pink; }");
+     this->setStyleSheet("QGroupBox {background-color: white; border-style: outset; border-width: 2px; border-color: beige; font: bold 14px;border: 2px solid white; border-bottom: 2px solid pink; }");
  }
 
  void    MainPage::setButtonAttributes(QPushButton* button, const QString toolTip = "")
  {
     button->setToolTip(toolTip);
     button->setFont(QFont("Times", 18, QFont::Bold));
+    //QPushButton{ "background-color: white;"};
+    //QPushButton::pressed{ "background-color: orange;" }
+    button->setStyleSheet("QPushButton {background-color: white; border-width: 1px; border-color: grey; font: bold 14px;padding: 25px; }");
+    //this->setStyleSheet("QPushButton {background-color: white; border-color: beige;border-width: 1px; padding: 30px; }");
+    //button->setStyleSheet("QPushButton::focus {background-color: red; border-style: outset; border-width: 2px; border-color: grey; font: bold 14px; min-width: 10em;padding: 6px; }");
+    //QAbstractButton::pressed{ "background-color: red"};
  }
 
  void MainPage::setLogo()
@@ -41,8 +45,7 @@ MainPage::MainPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newD
  //frame
  void MainPage::createFrameProducts()
  {
-     this->productGroupBox = new QGroupBox(tr("Products"));
-     this->setGroupBoxAttributes(productGroupBox, "Products");
+     this->productGroupBox = new QGroupBox(tr("Product"));
      QGridLayout *LayoutProducts = new QGridLayout(productGroupBox);
 
      QPushButton *products = new QPushButton("Products");
@@ -62,7 +65,6 @@ MainPage::MainPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newD
  void MainPage::createFrameGestion()
  {
      this->gestionGroupBox = new QGroupBox(tr("Gestion"));
-     this->setGroupBoxAttributes(gestionGroupBox, "Gestion");
      QGridLayout *LayoutGestion = new QGridLayout(gestionGroupBox);
 
      QPushButton *stocks = new QPushButton("Stocks");
@@ -86,7 +88,6 @@ MainPage::MainPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newD
  void MainPage::createFrameSales()
  {
      this->salesGroupBox = new QGroupBox(tr("Sales"));
-     this->setGroupBoxAttributes(salesGroupBox, "Sales");
      QGridLayout *LayoutSales = new QGridLayout(salesGroupBox);
 
      QPushButton *sales = new QPushButton("Sales");
@@ -105,7 +106,6 @@ MainPage::MainPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newD
  void MainPage::createFrameCustomers()
  {
      this->customersGroupBox = new QGroupBox(tr("Customers"));
-     this->setGroupBoxAttributes(customersGroupBox, "Customers");
      QGridLayout *LayoutCustomers = new QGridLayout(customersGroupBox);
 
      QPushButton *customers = new QPushButton("Customers");
@@ -124,7 +124,6 @@ MainPage::MainPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newD
  void MainPage::createFrameArtickes()
  {
      this->articleGroupBox = new QGroupBox(tr("Articles"));
-     this->setGroupBoxAttributes(articleGroupBox, "Articles");
 
      QGridLayout *LayoutArticles = new QGridLayout(articleGroupBox);
      //buttons
@@ -179,6 +178,7 @@ MainPage::MainPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newD
      mainLayout->addWidget(this->salesGroupBox);
      this->createFrameGestion();
      mainLayout->addWidget(this->gestionGroupBox);
+     this->setGroupBoxAttributes();
      setLayout(mainLayout);
  }
 

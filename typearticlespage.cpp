@@ -1,6 +1,6 @@
 #include "typearticlespage.hpp"
 
-TypeArticlesPage::TypeArticlesPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newDb)
+TypeArticlesPage::TypeArticlesPage(DbHandler &newDb, QWidget *parent) : QWidget(parent), db(newDb)
 {
 }
 
@@ -40,8 +40,18 @@ void TypeArticlesPage::cleanItem()
 {
     this->Li_ID->setText("");
     this->Li_name->setText("");
-    this->Li_baseUnit->setValue(0);
+    this->Li_baseUnit->setCurrentIndex(-1);
     this->Li_qte->setValue(0);
+}
+
+void    TypeArticlesPage::loadQComboBox()
+{
+    QMap <QString, QString> map;
+    this->db.getBaseUnit(map);
+    for(QMap <QString, QString>::iterator it=map.begin() ; it!=map.end() ; ++it)
+    {
+        this->Li_baseUnit->addItem(it.value(), it.key());
+    }
 }
 
 //setAttibutes
@@ -49,7 +59,7 @@ void TypeArticlesPage::cleanItem()
 void   TypeArticlesPage::setGroupBoxAttributes(QGroupBox* groupBox, const QString name = "")
 {
     groupBox->setObjectName(name);
-    groupBox->setStyleSheet("#"+name+" { border: 1px solid blue; }");
+    this->setStyleSheet("QGroupBox {background-color: white; border-style: outset; border-width: 2px; border-color: beige; font: bold 14px;border: 2px solid pink; }");
     groupBox->setTitle("");
 }
 
@@ -57,6 +67,7 @@ void    TypeArticlesPage::setButtonAttributes(QPushButton* button, const QString
 {
    button->setToolTip(toolTip);
    button->setFont(QFont("Times", 18, QFont::Bold));
+   button->setStyleSheet("QPushButton {background-color: white; border-width: 1px; border-color: grey; font: bold 14px; padding: 25px; }");
 }
 
 //Frames
@@ -97,9 +108,9 @@ QGroupBox* TypeArticlesPage::getList()
     Layout->addWidget(label);
 
     //The list
-    this->modele = new QStandardItemModel(0, 4);
+    this->modele = new QStandardItemModel(0, 5);
     QStringList lst;
-    lst << "Id" << "Name type article" << "Quantity unit" << "Base unit";
+    lst << "Id" << "Name type article" << "Quantity unit" << "Base unit" << "IdBaseUnit";
     this->modele->setHorizontalHeaderLabels(lst);
     this->db.getTypeArticle(this->modele);
     this->table = new QTableView;
@@ -107,6 +118,7 @@ QGroupBox* TypeArticlesPage::getList()
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table->setColumnHidden(4, true);
     connect(table->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(rowSelected(const QItemSelection&, const QItemSelection&)));
     Layout->addWidget(table);
 
@@ -126,13 +138,12 @@ QGroupBox* TypeArticlesPage::getBottom()
     this->Li_ID = new QLineEdit;
     this->Li_name = new QLineEdit;
     this->Li_qte = new QDoubleSpinBox;
-    this->Li_baseUnit = new QDoubleSpinBox;
+    this->Li_baseUnit = new QComboBox;
+    this->loadQComboBox();
     this->Li_ID->setReadOnly(true);
     this->Li_ID->setStyleSheet("background: grey");
     this->Li_qte->setDecimals(2);
     this->Li_qte->setMaximum(1000000);
-    this->Li_baseUnit->setDecimals(2);
-    this->Li_baseUnit->setMaximum(1000000);
     QFormLayout *formLayout = new QFormLayout();
     formLayout->addRow(tr("&Name of type article"), Li_name);
     formLayout->addRow(tr("&Base unit"), Li_baseUnit);
@@ -158,8 +169,9 @@ void TypeArticlesPage::rowSelected(const QItemSelection& selectionUp, const QIte
     QItemSelectionModel *select = table->selectionModel();
     this->Li_ID->setText(select->selectedRows(0).value(0).data().toString());
     this->Li_name->setText(select->selectedRows(1).value(0).data().toString());
-    this->Li_baseUnit->setValue(select->selectedRows(2).value(0).data().toDouble( ));
-    this->Li_qte->setValue(select->selectedRows(3).value(0).data().toDouble());
+    this->Li_qte->setValue(select->selectedRows(2).value(0).data().toDouble());
+    this->Li_baseUnit->setCurrentIndex(Li_baseUnit->findData(select->selectedRows(4).value(0).data().toString()));
+    ;
 }
 
 void TypeArticlesPage::addItem()
@@ -205,7 +217,7 @@ void TypeArticlesPage::validItem()
             reply = QMessageBox::question(this, "add", "Do you want to add the new type article '" + this->Li_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
-                if (this->db.addTypeArticle(this->Li_name->text(), (double)this->Li_baseUnit->value(), (double)this->Li_qte->value()))
+                if (this->db.addTypeArticle(this->Li_name->text(), this->Li_qte->value(), this->Li_baseUnit->itemData(this->Li_baseUnit->currentIndex()).toInt()))
                 {
                     this->setMessage(SUCCESS, "new type article added");
                 }
@@ -228,7 +240,7 @@ void TypeArticlesPage::validItem()
             reply = QMessageBox::question(this, "update", "Do you want to update the type article '" + this->Li_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
-                if (this->db.updateTypeArticle(this->Li_ID->text().toInt(), this->Li_name->text(), this->Li_baseUnit->value(), this->Li_qte->value()))
+                if (this->db.updateTypeArticle(this->Li_ID->text().toInt(), this->Li_name->text(),  this->Li_qte->value(), this->Li_baseUnit->itemData(this->Li_baseUnit->currentIndex()).toInt()))
                 {
                     this->setMessage(SUCCESS, "Type article modified");
                 }

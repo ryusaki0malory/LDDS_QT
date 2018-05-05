@@ -1,6 +1,6 @@
 #include "familyPage.hpp"
 
-FamilyPage::FamilyPage(DbManager &newDb, QWidget *parent) : QWidget(parent), db(newDb)
+FamilyPage::FamilyPage(DbHandler &newDb, QWidget *parent) : QWidget(parent), db(newDb)
 {
 }
 
@@ -47,7 +47,7 @@ void FamilyPage::cleanItem()
 void   FamilyPage::setGroupBoxAttributes(QGroupBox* groupBox, const QString name = "")
 {
     groupBox->setObjectName(name);
-    groupBox->setStyleSheet("#"+name+" { border: 1px solid blue; }");
+    this->setStyleSheet("QGroupBox {background-color: white; border-style: outset; border-width: 2px; border-color: beige; font: bold 14px;border: 2px solid pink; }");
     groupBox->setTitle("");
 }
 
@@ -55,6 +55,7 @@ void    FamilyPage::setButtonAttributes(QPushButton* button, const QString toolT
 {
    button->setToolTip(toolTip);
    button->setFont(QFont("Times", 18, QFont::Bold));
+   button->setStyleSheet("QPushButton {background-color: white; border-width: 1px; border-color: grey; font: bold 14px; padding: 25px; }");
 }
 
 //Frames

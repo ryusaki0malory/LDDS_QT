@@ -37,7 +37,8 @@ SOURCES += \
     dbmanager.cpp \
     retaillerpage.cpp \
     typearticlespage.cpp \
-    baseunitpage.cpp
+    baseunitpage.cpp \
+    dbhandler.cpp
 
 HEADERS += \
     view.hpp \
@@ -47,13 +48,13 @@ HEADERS += \
     dbmanager.hpp \
     retaillerpage.hpp \
     typearticlespage.hpp \
-    baseunitpage.hpp
+    baseunitpage.hpp \
+    dbhandler.hpp
 
 FORMS +=
 
 CONFIG += mobility
 MOBILITY = 
 
-RESOURCES += \
-    logotest.qrc
+RESOURCES +=
 

@@ -15,14 +15,14 @@
 #include <QTableWidgetItem>
 #include <QMessageBox>
 #include "tools.hpp"
-#include "dbmanager.hpp"
+#include "dbhandler.hpp"
 
 class FamilyPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit FamilyPage(DbManager &newDb, QWidget *parent = nullptr);
+    explicit FamilyPage(DbHandler &newDb, QWidget *parent = nullptr);
     ~FamilyPage();
     void setLayoutWindow();
 
@@ -42,7 +42,7 @@ private:
     QGroupBox* getHead();
     QGroupBox* getList();
     QGroupBox* getBottom();
-    DbManager &db;
+    DbHandler &db;
 
     //Head
     QPushButton *But_return;

@@ -13,14 +13,14 @@
 #include <QMessageBox>
 #include <QHeaderView>
 #include "tools.hpp"
-#include "dbmanager.hpp"
+#include "dbhandler.hpp"
 
 class RetaillerPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit RetaillerPage(DbManager &newDb, QWidget *parent = nullptr);
+    explicit RetaillerPage(DbHandler &newDb, QWidget *parent = nullptr);
     ~RetaillerPage();
     void setLayoutWindow();
 
@@ -40,7 +40,7 @@ private:
     QGroupBox* getHead();
     QGroupBox* getList();
     QGroupBox* getBottom();
-    DbManager &db;
+    DbHandler &db;
 
     //Head
     QPushButton *But_return;

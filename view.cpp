@@ -1,6 +1,6 @@
 #include "view.hpp"
 
-View::View(DbManager &newDb) : db(newDb)
+View::View(DbHandler &newDb) : db(newDb)
 {
     this->resize(600, 800);
     QString windowTitle = "LDDS project. Vers: " + static_cast<QString>(VERSION);
@@ -15,7 +15,7 @@ View::~View()
 
 bool View::loadPage(const Tools_LDDS::windowsName_t name)
 {
-
+    this->setStyleSheet("QMainWindow {background-color: white;}");
     switch(name)
     {
         case Tools_LDDS::MAIN_PAGE:
