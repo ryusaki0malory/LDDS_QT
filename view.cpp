@@ -48,6 +48,18 @@ bool View::loadPage(const Tools_LDDS::windowsName_t name)
             setCentralWidget(this->_window.baseunitPage);
             this->_window.baseunitPage->setLayoutWindow();
             break;
+        case Tools_LDDS::PAYMENT_PAGE:
+            this->_window.paymentMethodPage = new PaymentMethodPage(db, this);
+            connect(this->_window.paymentMethodPage, SIGNAL(loadPageParent(const Tools_LDDS::windowsName_t)), this, SLOT(changePage(const Tools_LDDS::windowsName_t)));
+            setCentralWidget(this->_window.paymentMethodPage);
+            this->_window.paymentMethodPage->setLayoutWindow();
+            break;
+        case Tools_LDDS::CUSTOMER_PAGE:
+            this->_window.customerPage = new CustomerPage(db, this);
+            connect(this->_window.customerPage, SIGNAL(loadPageParent(const Tools_LDDS::windowsName_t)), this, SLOT(changePage(const Tools_LDDS::windowsName_t)));
+            setCentralWidget(this->_window.customerPage);
+            this->_window.customerPage->setLayoutWindow();
+            break;
     }
     return (true);
 }

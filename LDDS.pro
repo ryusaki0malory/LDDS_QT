@@ -30,26 +30,32 @@ DEFINES += \
 
 SOURCES += \
         main.cpp \
-    view.cpp \
-    mainPage.cpp \
-    tools.cpp \
-    familyPage.cpp \
-    dbmanager.cpp \
-    retaillerpage.cpp \
-    typearticlespage.cpp \
-    baseunitpage.cpp \
-    dbhandler.cpp
+        view.cpp \
+        dbhandler.cpp \
+        dbmanager.cpp \
+        tools.cpp \
+        mainPage.cpp \
+        familyPage.cpp \
+        retaillerPage.cpp \
+        typeArticlesPage.cpp \
+        paymentMethodPage.cpp \
+        baseUnitPage.cpp \
+    customerPage.cpp
+
 
 HEADERS += \
-    view.hpp \
-    mainPage.hpp \
-    tools.hpp \
-    familyPage.hpp \
-    dbmanager.hpp \
-    retaillerpage.hpp \
-    typearticlespage.hpp \
-    baseunitpage.hpp \
-    dbhandler.hpp
+        view.hpp \
+        tools.hpp \
+        dbmanager.hpp \
+        dbhandler.hpp \
+        mainPage.hpp \
+        familyPage.hpp \
+        retaillerPage.hpp \
+        typeArticlesPage.hpp \
+        paymentMethodPage.hpp \
+        baseUnitPage.hpp \
+    customerPage.hpp
+
 
 FORMS +=
 

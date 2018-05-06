@@ -65,6 +65,26 @@ protected:
     const QString KEY_MULT_BASE = "multBaseUnit";
     const QString KEY_D_MODIF_BASE = "ModifBaseUnit";
 
+    //Table base unit
+    const QString TABLE_PAYMENT = "paymentMethod";
+    const QString KEY_ID_PAYMENT = "IDPaymentMethod";
+    const QString KEY_NAME_PAYMENT = "NamePaymentMethod";
+    const QString KEY_D_MODIF_PAYMENT = "ModifPaymentMethod";
+
+    //Table customer
+    const QString TABLE_CUSTOMER = "customer";
+    const QString KEY_ID_CUSTOMER = "IDCustomer";
+    const QString KEY_FIRST_NAME_CUSTOMER = "FirstNameCustomer";
+    const QString KEY_LAST_NAME_CUSTOMER = "LastNameCustomer";
+    const QString KEY_ADDRESS_CUSTOMER = "AddressCustomer";
+    const QString KEY_POSTAL_CODE_CUSTOMER = "PostalCodeCustomer";
+    const QString KEY_CITY_CUSTOMER = "CityCustomer";
+    const QString KEY_COMMENT_CUSTOMER = "CommentCustomer";
+    const QString KEY_ACCOUNT_ID_CUSTOMER = "AccountIdCustomer";
+    const QString KEY_PHONE_CUSTOMER = "PhoneCustomer";
+    const QString KEY_MAIL_CUSTOMER = "MailCustomer";
+    const QString KEY_D_MODIF_CUSTOMER = "ModifCustomer";
+
 };
 
 #endif // DBMANAGER_HPP

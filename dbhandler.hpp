@@ -42,6 +42,18 @@ public:
     void getBaseUnit(QMap <QString, QString> &lst);
     bool updateBaseUnit(const int &ID, const QString &name, const double &mult);
     bool deleteBaseUnit(const int &ID);
+
+    //Base unit
+    bool addPaymentMethod(const QString &name);
+    void getPaymentMethod(QStandardItemModel *modele);
+    bool updatePaymentMethod(const int &ID, const QString &name);
+    bool deletePaymentMethod(const int &ID);
+
+    //Customer
+    bool addCustomer(const QString &FirstName, const QString &LastName, const QString &Address, const QString &CodePost, const QString &City, const QString &Comment, const QString &Phone, const QString &Mail, const int &Account);
+    void getCustomer(QStandardItemModel *modele);
+    bool updateCustomer(const int &ID, const QString &FirstName, const QString &LastName, const QString &Address, const QString &CodePost, const QString &City, const QString &Comment, const QString &Phone, const QString &Mail, const int &Account);
+    bool deleteCustomer(const int &ID);
 private :
 
 };

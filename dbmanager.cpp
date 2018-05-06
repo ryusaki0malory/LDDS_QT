@@ -114,4 +114,34 @@ void DbManager::onCreate()
     {
         qWarning() << "baseUnitTable error :" << queryCreateBaseUnit.lastError();
     }
+    //Table paymentMethod
+    QString CREATE_TABLE_PAYMENT_METHOD = "CREATE TABLE IF NOT EXISTS " + TABLE_PAYMENT + " ( " +
+                    KEY_ID_PAYMENT + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_NAME_PAYMENT + " TEXT," +
+                    KEY_D_MODIF_PAYMENT + " TEXT);";
+    QSqlQuery queryCreatePaymentMethod;
+    queryCreatePaymentMethod.prepare(CREATE_TABLE_PAYMENT_METHOD);
+    if(!queryCreatePaymentMethod.exec())
+    {
+        qWarning() << "paymentMethodTable error :" << queryCreatePaymentMethod.lastError();
+    }
+    //Table cutomer
+    QString CREATE_TABLE_CUSTOMER = "CREATE TABLE IF NOT EXISTS " + TABLE_CUSTOMER + " ( " +
+                    KEY_ID_CUSTOMER + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_LAST_NAME_CUSTOMER + " TEXT," +
+                    KEY_FIRST_NAME_CUSTOMER + " TEXT," +
+                    KEY_ADDRESS_CUSTOMER + " TEXT," +
+                    KEY_POSTAL_CODE_CUSTOMER + " VARCHAR(10)," +
+                    KEY_CITY_CUSTOMER + " TEXT," +
+                    KEY_COMMENT_CUSTOMER + " TEXT," +
+                    KEY_ACCOUNT_ID_CUSTOMER + " INTEGER," +
+                    KEY_PHONE_CUSTOMER + " VARCHAR(20)," +
+                    KEY_MAIL_CUSTOMER + " TEXT," +
+                    KEY_D_MODIF_PAYMENT + " TEXT);";
+    QSqlQuery queryCreateCustomer;
+    queryCreateCustomer.prepare(CREATE_TABLE_CUSTOMER);
+    if(!queryCreateCustomer.exec())
+    {
+        qWarning() << "Customer error :" << queryCreateCustomer.lastError();
+    }
 }

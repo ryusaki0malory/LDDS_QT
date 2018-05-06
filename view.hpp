@@ -3,24 +3,28 @@
 
 #include <QMainWindow>
 #include <QLabel>
-#include "mainpage.hpp"
+#include "mainPage.hpp"
 #include "familyPage.hpp"
-#include "retaillerpage.hpp"
-#include "typearticlespage.hpp"
-#include "baseunitpage.hpp"
+#include "retaillerPage.hpp"
+#include "typeArticlesPage.hpp"
+#include "baseUnitPage.hpp"
+#include "paymentMethodPage.hpp"
+#include "customerPage.hpp"
 #include "dbhandler.hpp"
 #include "tools.hpp"
 
 class View : public QMainWindow
 {
     Q_OBJECT
-    typedef union windows //Error of conception constructor cannot be called...My mistake
+    typedef union windows //Error of conception constructors cannot be called...My mistake
     {
         MainPage *mainpage;
         FamilyPage *familyPage;
         RetaillerPage *retaillerPage;
         TypeArticlesPage *typeArticlesPage;
         BaseUnitPage *baseunitPage;
+        PaymentMethodPage *paymentMethodPage;
+        CustomerPage *customerPage;
     }windows_t;
 
 private:
