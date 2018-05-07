@@ -64,7 +64,8 @@ bool DbHandler::addFamily(const QString &family)
 
        return (success);
 }
-bool DbHandler::updateFamily(const int &ID, const QString &family)
+bool DbHandler::updateFamily(const int &ID,
+                             const QString &family)
 {
     bool success = false;
     QSqlQuery query;
@@ -139,7 +140,8 @@ void DbHandler::getRetailler(QStandardItemModel *modele)
         qWarning() << "getRetailler error :" << query.lastError();
     }
 }
-bool DbHandler::addRetailler(const QString &name, const QString &comment)
+bool DbHandler::addRetailler(const QString &name,
+                             const QString &comment)
 {
     bool success = false;
     QSqlQuery query;
@@ -165,7 +167,9 @@ bool DbHandler::addRetailler(const QString &name, const QString &comment)
     }
     return (success);
 }
-bool DbHandler::updateRetailler(const int &ID, const QString &name, const QString &comment)
+bool DbHandler::updateRetailler(const int &ID,
+                                const QString &name,
+                                const QString &comment)
 {
     bool success = false;
     QSqlQuery query;
@@ -263,7 +267,9 @@ void DbHandler::getTypeArticle(QStandardItemModel *modele)
         qWarning() << "getType error :" << query.lastError();
     }
 }
-bool DbHandler::addTypeArticle(const QString &name, const double &qte, const int &baseUnit)
+bool DbHandler::addTypeArticle(const QString &name,
+                               const double &qte,
+                               const int &baseUnit)
 {
     bool success = false;
     QSqlQuery query;
@@ -291,7 +297,10 @@ bool DbHandler::addTypeArticle(const QString &name, const double &qte, const int
     }
     return (success);
 }
-bool DbHandler::updateTypeArticle(const int &ID, const QString &name, const double &qte, const int &baseUnit)
+bool DbHandler::updateTypeArticle(const int &ID,
+                                  const QString &name,
+                                  const double &qte,
+                                  const int &baseUnit)
 {
     bool success = false;
     QSqlQuery query;
@@ -390,7 +399,8 @@ void DbHandler::getBaseUnit(QMap <QString, QString> &lst)
         qWarning() << "getBase error :" << query.lastError();
     }
 }
-bool DbHandler::addBaseUnit(const QString &name, const double &mult)
+bool DbHandler::addBaseUnit(const QString &name,
+                            const double &mult)
 {
     bool success = false;
     QSqlQuery query;
@@ -416,7 +426,9 @@ bool DbHandler::addBaseUnit(const QString &name, const double &mult)
     }
     return (success);
 }
-bool DbHandler::updateBaseUnit(const int &ID, const QString &name, const double &mult)
+bool DbHandler::updateBaseUnit(const int &ID,
+                               const QString &name,
+                               const double &mult)
 {
     bool success = false;
     QSqlQuery query;
@@ -512,7 +524,8 @@ bool DbHandler::addPaymentMethod(const QString &name)
     }
     return (success);
 }
-bool DbHandler::updatePaymentMethod(const int &ID, const QString &name)
+bool DbHandler::updatePaymentMethod(const int &ID,
+                                    const QString &name)
 {
     bool success = false;
     QSqlQuery query;
@@ -607,41 +620,52 @@ void DbHandler::getCustomer(QStandardItemModel *modele)
         qWarning() << "getPaymentMethod error :" << query.lastError();
     }
 }
-bool DbHandler::addCustomer(const QString &FirstName, const QString &LastName, const QString &Address, const QString &CodePost, const QString &City, const QString &Comment, const QString &Phone, const QString &Mail, const int &Account)
+bool DbHandler::addCustomer(const QString &FirstName,
+                            const QString &LastName,
+                            const QString &Address,
+                            const QString &CodePost,
+                            const QString &City,
+                            const QString &Comment,
+                            const QString &Phone,
+                            const QString &Mail,
+                            const int &Account)
 {
     bool success = false;
     QSqlQuery query;
+
     query.prepare("INSERT INTO " +
                         TABLE_CUSTOMER +
                   " (" +
                         KEY_FIRST_NAME_CUSTOMER + "," +
-                        KEY_LAST_NAME_CUSTOMER + "," +
-                        KEY_ADDRESS_CUSTOMER + "," +
-                        KEY_POSTAL_CODE_CUSTOMER + "," +
-                        KEY_CITY_CUSTOMER + "," +
-                        KEY_COMMENT_CUSTOMER + "," +
-                        KEY_PHONE_CUSTOMER + "," +
-                        KEY_MAIL_CUSTOMER + "," +
+//                        KEY_LAST_NAME_CUSTOMER + "," +
+//                        KEY_ADDRESS_CUSTOMER + "," +
+//                        KEY_POSTAL_CODE_CUSTOMER + "," +
+//                        KEY_CITY_CUSTOMER + "," +
+//                        KEY_COMMENT_CUSTOMER + "," +
+//                        KEY_PHONE_CUSTOMER + "," +
+//                        KEY_MAIL_CUSTOMER + "," +
+//                        KEY_ACCOUNT_ID_CUSTOMER + "," +
                         KEY_D_MODIF_CUSTOMER +
                   ") VALUES (:" +
-                        KEY_FIRST_NAME_CUSTOMER + ",:" +
-                        KEY_LAST_NAME_CUSTOMER + ",:" +
-                        KEY_ADDRESS_CUSTOMER + ",:" +
-                        KEY_POSTAL_CODE_CUSTOMER + ",:" +
-                        KEY_CITY_CUSTOMER + ",:" +
-                        KEY_COMMENT_CUSTOMER + ",:" +
-                        KEY_PHONE_CUSTOMER + ",:" +
-                        KEY_MAIL_CUSTOMER + ",:" +
-                        KEY_D_MODIF_CUSTOMER + ",:" +
-                        ", DATETIME('now'))");
+                        KEY_FIRST_NAME_CUSTOMER + "," +
+//                        KEY_LAST_NAME_CUSTOMER + ",:" +
+//                        KEY_ADDRESS_CUSTOMER + ",:" +
+//                        KEY_POSTAL_CODE_CUSTOMER + ",:" +
+//                        KEY_CITY_CUSTOMER + ",:" +
+//                        KEY_COMMENT_CUSTOMER + ",:" +
+//                        KEY_PHONE_CUSTOMER + ",:" +
+//                        KEY_MAIL_CUSTOMER + ",:" +
+//                        KEY_ACCOUNT_ID_CUSTOMER + "," +
+                        " DATETIME('now'))");
     query.bindValue(":"+ KEY_FIRST_NAME_CUSTOMER, FirstName);
-    query.bindValue(":"+ KEY_LAST_NAME_CUSTOMER, LastName);
-    query.bindValue(":"+ KEY_ADDRESS_CUSTOMER, Address);
-    query.bindValue(":"+ KEY_POSTAL_CODE_CUSTOMER, CodePost);
-    query.bindValue(":"+ KEY_CITY_CUSTOMER, City);
-    query.bindValue(":"+ KEY_COMMENT_CUSTOMER, Comment);
-    query.bindValue(":"+ KEY_PHONE_CUSTOMER, Phone);
-    query.bindValue(":"+ KEY_MAIL_CUSTOMER, Mail);
+//    query.bindValue(":"+ KEY_LAST_NAME_CUSTOMER, LastName);
+//    query.bindValue(":"+ KEY_ADDRESS_CUSTOMER, Address);
+//    query.bindValue(":"+ KEY_POSTAL_CODE_CUSTOMER, CodePost);
+//    query.bindValue(":"+ KEY_CITY_CUSTOMER, City);
+//    query.bindValue(":"+ KEY_COMMENT_CUSTOMER, Comment);
+//    query.bindValue(":"+ KEY_PHONE_CUSTOMER, Phone);
+//    query.bindValue(":"+ KEY_MAIL_CUSTOMER, Mail);
+//    query.bindValue(":"+ KEY_ACCOUNT_ID_CUSTOMER, Account);
     if(query.exec())
     {
         success = true;
@@ -652,39 +676,73 @@ bool DbHandler::addCustomer(const QString &FirstName, const QString &LastName, c
     }
     return (success);
 }
-bool DbHandler::updateCustomer(const int &ID, const QString &name)
+bool DbHandler::updateCustomer(const int &ID,
+                               const QString &FirstName,
+                               const QString &LastName,
+                               const QString &Address,
+                               const QString &CodePost,
+                               const QString &City,
+                               const QString &Comment,
+                               const QString &Phone,
+                               const QString &Mail,
+                               const int &Account)
 {
     bool success = false;
     QSqlQuery query;
 
-    query.prepare("UPDATE " + TABLE_PAYMENT + " SET " + KEY_NAME_PAYMENT + " = :" + KEY_NAME_PAYMENT + "," + KEY_D_MODIF_PAYMENT + " =  DATETIME('now') WHERE " + KEY_ID_PAYMENT + " = :" + KEY_ID_PAYMENT );
-    query.bindValue(":"+ KEY_NAME_PAYMENT, name);
-    query.bindValue(":"+ KEY_ID_PAYMENT, ID);
+    query.prepare("UPDATE " +
+                        TABLE_CUSTOMER +
+                  " SET " +
+                        KEY_FIRST_NAME_CUSTOMER + " = :" + KEY_FIRST_NAME_CUSTOMER + "," +
+                        KEY_LAST_NAME_CUSTOMER + " = :" + KEY_LAST_NAME_CUSTOMER + "," +
+                        KEY_ADDRESS_CUSTOMER + " = :" + KEY_ADDRESS_CUSTOMER + "," +
+                        KEY_POSTAL_CODE_CUSTOMER + " = :" + KEY_POSTAL_CODE_CUSTOMER + "," +
+                        KEY_CITY_CUSTOMER + " = :" + KEY_CITY_CUSTOMER + "," +
+                        KEY_COMMENT_CUSTOMER + " = :" + KEY_COMMENT_CUSTOMER + "," +
+                        KEY_PHONE_CUSTOMER + " = :" + KEY_PHONE_CUSTOMER + "," +
+                        KEY_MAIL_CUSTOMER + " = :" + KEY_MAIL_CUSTOMER + "," +
+                        KEY_ACCOUNT_ID_CUSTOMER + " = :" + KEY_ACCOUNT_ID_CUSTOMER + "," +
+                        KEY_D_MODIF_CUSTOMER + " =  DATETIME('now')" +
+                  " WHERE " +
+                        KEY_ID_CUSTOMER + " = :" + KEY_ID_CUSTOMER );
+    query.bindValue(":"+ KEY_FIRST_NAME_CUSTOMER, FirstName);
+    query.bindValue(":"+ KEY_LAST_NAME_CUSTOMER, LastName);
+    query.bindValue(":"+ KEY_ADDRESS_CUSTOMER, Address);
+    query.bindValue(":"+ KEY_POSTAL_CODE_CUSTOMER, CodePost);
+    query.bindValue(":"+ KEY_CITY_CUSTOMER, City);
+    query.bindValue(":"+ KEY_COMMENT_CUSTOMER, Comment);
+    query.bindValue(":"+ KEY_PHONE_CUSTOMER, Phone);
+    query.bindValue(":"+ KEY_MAIL_CUSTOMER, Mail);
+    query.bindValue(":"+ KEY_ACCOUNT_ID_CUSTOMER, Account);
+    query.bindValue(":"+ KEY_ID_CUSTOMER, ID);
     if(query.exec())
     {
         success = true;
     }
     else
     {
-        qWarning() << "updatePaymentMethod error :" << query.lastError();
+        qWarning() << "updateCustomer error :" << query.lastError();
     }
 
     return (success);
 }
-bool DbHandler::deletePaymentMethod(const int &ID)
+bool DbHandler::deleteCustomer(const int &ID)
 {
     bool success = false;
     QSqlQuery query;
 
-    query.prepare("DELETE FROM " + TABLE_PAYMENT + " WHERE " + KEY_ID_PAYMENT + " = :" + KEY_ID_PAYMENT );
-    query.bindValue(":"+ KEY_ID_PAYMENT, ID);
+    query.prepare("DELETE FROM " +
+                        TABLE_CUSTOMER +
+                  " WHERE " +
+                        KEY_ID_CUSTOMER + " = :" + KEY_ID_CUSTOMER );
+    query.bindValue(":"+ KEY_ID_CUSTOMER, ID);
     if(query.exec())
     {
         success = true;
     }
     else
     {
-        qWarning() << "deletePaymentMethod error :" << query.lastError();
+        qWarning() << "deleteCustomer error :" << query.lastError();
     }
     return (success);
 }

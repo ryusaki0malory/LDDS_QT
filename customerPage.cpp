@@ -39,7 +39,14 @@ void    CustomerPage::setMessage(const status_t status, const QString message)
 void CustomerPage::cleanItem()
 {
     this->Li_ID->setText("");
-    this->Li_name->setText("");
+    this->Li_first_name->setText("");
+    this->Li_last_name->setText("");
+    this->Li_address->setText("");
+    this->Li_postal_code->setText("");
+    this->Li_city->setText("");
+    this->Li_comment->setText("");
+    this->Li_phone->setText("");
+    this->Li_mail->setText("");
 }
 
 //setAttibutes
@@ -100,7 +107,7 @@ QGroupBox* CustomerPage::getList()
     QStringList lst;
     lst << "Id" << "Last name" << "First name" << "Address" << "Postal code" << "City" << "Comment" << "Phone" << "Mail";
     this->modele->setHorizontalHeaderLabels(lst);
-    this->db.getPaymentMethod(this->modele);
+    this->db.getCustomer(this->modele);
     this->table = new QTableView;
     table->setModel(modele);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
