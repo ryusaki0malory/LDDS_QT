@@ -113,7 +113,7 @@ QGroupBox* CustomerPage::getList()
     this->setGroupBoxAttributes(groupBox, "CustomerL");
     QVBoxLayout *Layout = new QVBoxLayout(groupBox);
 
-    this->label = new QLabel(tr("Payment method"));
+    this->label = new QLabel(tr("Customer"));
     label->setFont(QFont("Times", 20, QFont::Bold));
     Layout->addWidget(label);
 
@@ -122,7 +122,7 @@ QGroupBox* CustomerPage::getList()
     QStringList lst;
     lst << "Id" << "Last name" << "First name" << "Address" << "Postal code" << "City" << "Comment" << "Phone" << "Mail";
     this->modele->setHorizontalHeaderLabels(lst);
-    this->db.getCustomer(this->modele);
+    //this->db.getCustomer(this->modele);
     this->table = new QTableView;
     table->setModel(modele);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -225,21 +225,21 @@ void CustomerPage::deleteItem()
         reply = QMessageBox::question(this, "deleted", "Do you want to delete the customer '" + this->Li_last_name->text() + "'?",
                                         QMessageBox::Yes|QMessageBox::No);
         if (reply == QMessageBox::Yes) {
-            if (this->db.deleteCustomer(this->Li_ID->text().toInt()))
-            {
-                this->setMessage(SUCCESS, "Customer deleted");
-            }
-            else
-            {
-                this->setMessage(FAIL, "Error occured");
-            }
+//            if (this->db.deleteCustomer(this->Li_ID->text().toInt()))
+//            {
+//                this->setMessage(SUCCESS, "Customer deleted");
+//            }
+//            else
+//            {
+//                this->setMessage(FAIL, "Error occured");
+//            }
           } else {
             this->setMessage(FAIL, "");
           }
     }
     //actualise
     this->modele->setRowCount(0);
-    this->db.getCustomer(this->modele);
+    //this->db.getCustomer(this->modele);
     this->cleanItem();
 }
 
@@ -253,20 +253,20 @@ void CustomerPage::validItem()
             QMessageBox::StandardButton reply;
             reply = QMessageBox::question(this, "add", "Do you want to add the new customer '" + this->Li_last_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
-            if (reply == QMessageBox::Yes) {
-                if (this->db.addCustomer(Li_first_name->text(), Li_last_name->text(), Li_address->text(), Li_postal_code->text(), Li_city->text(), Li_comment->toPlainText(), Li_phone->text(), Li_mail->text(), 0 ))
-                {
-                    this->setMessage(SUCCESS, "Customer added");
-                }
-                else
-                {
-                    this->setMessage(FAIL, "Error occured");
-                }
-             }
-             else
-             {
-                this->setMessage(FAIL, "");
-             }
+//            if (reply == QMessageBox::Yes) {
+//                if (this->db.addCustomer(Li_first_name->text(), Li_last_name->text(), Li_address->text(), Li_postal_code->text(), Li_city->text(), Li_comment->toPlainText(), Li_phone->text(), Li_mail->text(), 0 ))
+//                {
+//                    this->setMessage(SUCCESS, "Customer added");
+//                }
+//                else
+//                {
+//                    this->setMessage(FAIL, "Error occured");
+//                }
+//             }
+//             else
+//             {
+//                this->setMessage(FAIL, "");
+//             }
         }
     }
     else
@@ -277,14 +277,14 @@ void CustomerPage::validItem()
             reply = QMessageBox::question(this, "update", "Do you want to update the customer '" + this->Li_last_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
-                if (this->db.updateCustomer(this->Li_ID->text().toInt(), Li_first_name->text(), Li_last_name->text(), Li_address->text(), Li_postal_code->text(), Li_city->text(), Li_comment->toPlainText(), Li_phone->text(), Li_mail->text(), 0))
-                {
-                    this->setMessage(SUCCESS, "Customer modified");
-                }
-                else
-                {
-                    this->setMessage(FAIL, "Error occured");
-                }
+//                if (this->db.updateCustomer(this->Li_ID->text().toInt(), Li_first_name->text(), Li_last_name->text(), Li_address->text(), Li_postal_code->text(), Li_city->text(), Li_comment->toPlainText(), Li_phone->text(), Li_mail->text(), 0))
+//                {
+//                    this->setMessage(SUCCESS, "Customer modified");
+//                }
+//                else
+//                {
+//                    this->setMessage(FAIL, "Error occured");
+//                }
             }
             else
             {
@@ -294,7 +294,7 @@ void CustomerPage::validItem()
     }
     //actualise
     this->modele->setRowCount(0);
-    this->db.getCustomer(this->modele);
+    //this->db.getCustomer(this->modele);
     this->cleanItem();
 }
 

@@ -39,51 +39,90 @@ protected:
     const QString DATABASE_NAME = "LDDS.db";
     //Table family article
     const QString TABLE_FAMILY = "family";
-    const QString KEY_ID_FAMILY = "IDFamily";
-    const QString KEY_NAME_FAMILY = "NameFamily";
-    const QString KEY_D_MODIF_FAMILY = "ModifFamily";
+    const QString KEY_ID_FAMILY = "ID";
+    const QString KEY_NAME_FAMILY = "Name";
+    const QString KEY_D_MODIF_FAMILY = "Modif";
 
     //Table retailler article
     const QString TABLE_RETAILLER = "retailler";
-    const QString KEY_ID_RETAILLER = "IDRetailler";
-    const QString KEY_NAME_RETAILLER = "NameRetailler";
-    const QString KEY_COMMENT_RETAILLER = "CommentRetailler";
-    const QString KEY_D_MODIF_RETAILLER = "ModifRetailler";
+    const QString KEY_ID_RETAILLER = "ID";
+    const QString KEY_NAME_RETAILLER = "Name";
+    const QString KEY_COMMENT_RETAILLER = "Comment";
+    const QString KEY_D_MODIF_RETAILLER = "Modif";
 
     //Table type article
     const QString TABLE_TYPE = "typeArticle";
-    const QString KEY_ID_TYPE = "IDTypeArticle";
-    const QString KEY_NAME_TYPE = "NameTypeArticle";
-    const QString KEY_QTE_TYPE = "qteTypeArticle";
-    const QString KEY_BASE_UNIT_TYPE = "baseUnitTypeArticle";
-    const QString KEY_D_MODIF_TYPE = "ModifTypeArticles";
+    const QString KEY_ID_TYPE = "ID";
+    const QString KEY_NAME_TYPE = "Name";
+    const QString KEY_QTE_TYPE = "qte";
+    const QString KEY_BASE_UNIT_TYPE = "baseUnit";
+    const QString KEY_D_MODIF_TYPE = "Modif";
 
     //Table base unit
     const QString TABLE_BASE = "baseUnit";
-    const QString KEY_ID_BASE = "IDBaseUnit";
-    const QString KEY_NAME_BASE = "NameBaseUnit";
-    const QString KEY_MULT_BASE = "multBaseUnit";
-    const QString KEY_D_MODIF_BASE = "ModifBaseUnit";
+    const QString KEY_ID_BASE = "ID";
+    const QString KEY_NAME_BASE = "Name";
+    const QString KEY_MULT_BASE = "mult";
+    const QString KEY_D_MODIF_BASE = "Modif";
 
     //Table base unit
     const QString TABLE_PAYMENT = "paymentMethod";
-    const QString KEY_ID_PAYMENT = "IDPaymentMethod";
-    const QString KEY_NAME_PAYMENT = "NamePaymentMethod";
-    const QString KEY_D_MODIF_PAYMENT = "ModifPaymentMethod";
+    const QString KEY_ID_PAYMENT = "ID";
+    const QString KEY_NAME_PAYMENT = "Name";
+    const QString KEY_D_MODIF_PAYMENT = "Modif";
 
     //Table customer
     const QString TABLE_CUSTOMER = "customer";
-    const QString KEY_ID_CUSTOMER = "IDCustomer";
-    const QString KEY_FIRST_NAME_CUSTOMER = "FirstNameCustomer";
-    const QString KEY_LAST_NAME_CUSTOMER = "LastNameCustomer";
-    const QString KEY_ADDRESS_CUSTOMER = "AddressCustomer";
-    const QString KEY_POSTAL_CODE_CUSTOMER = "PostalCodeCustomer";
-    const QString KEY_CITY_CUSTOMER = "CityCustomer";
-    const QString KEY_COMMENT_CUSTOMER = "CommentCustomer";
-    const QString KEY_ACCOUNT_ID_CUSTOMER = "AccountIdCustomer";
-    const QString KEY_PHONE_CUSTOMER = "PhoneCustomer";
-    const QString KEY_MAIL_CUSTOMER = "MailCustomer";
-    const QString KEY_D_MODIF_CUSTOMER = "ModifCustomer";
+    const QString KEY_ID_CUSTOMER = "ID";
+    const QString KEY_FIRST_NAME_CUSTOMER = "FirstName";
+    const QString KEY_LAST_NAME_CUSTOMER = "LastName";
+    const QString KEY_COMMENT_CUSTOMER = "Comment";
+    const QString KEY_ACCOUNT_ID_CUSTOMER = "AccountId";
+    const QString KEY_MAIL_CUSTOMER = "Mail";
+    const QString KEY_D_MODIF_CUSTOMER = "Modif";
+
+    //Table address
+    const QString TABLE_ADDRESS = "address";
+    const QString KEY_ID_ADDRESS = "ID";
+    const QString KEY_ID_TYPE_ADDRESS_ADDRESS = "IDType";
+    const QString KEY_BODY_ADDRESS = "Body";
+    const QString KEY_POSTAL_CODE_CUSTOMER = "PostalCode";
+    const QString KEY_CITY_CUSTOMER = "City";
+    const QString KEY_D_MODIF_ADDRESS = "Modif";
+
+    //Table link address
+    const QString TABLE_LINK_ADDRESS = "linkAddress";
+    const QString KEY_ID_LINK_ADDRESS = "IDLink";
+    const QString KEY_ID_CUSTOMER_LINK_ADDRESS = "IDCustomer";
+    const QString KEY_ID_ADDRESS_LINK_ADDRESS = "IDAddress";
+    const QString KEY_D_MODIF_LINK_ADDRESS = "Modif";
+
+    //TypeAddress
+    const QString TABLE_TYPE_ADDRESS = "typeAddress";
+    const QString KEY_ID_TYPE_ADDRESS = "IDType";
+    const QString KEY_NAME_TYPE_ADDRESS = "NameType";
+    const QString KEY_D_MODIF_TYPE_ADDRESS = "ModifType";
+
+    //Table Phone
+    const QString TABLE_PHONE = "phone";
+    const QString KEY_ID_PHONE = "ID";
+    const QString KEY_NAME_PHONE = "Name";
+    const QString KEY_NUMBER_PHONE = "Number";
+    const QString KEY_ID_TYPE_PHONE_PHONE = "IdType";
+    const QString KEY_D_MODIF_PHONE = "Modif";
+
+    //Table link phone
+    const QString TABLE_LINK_PHONE = "linkPhone";
+    const QString KEY_ID_LINK_PHONE = "IDLink";
+    const QString KEY_ID_CUSTOMER_LINK_PHONE = "IDCustomerLink";
+    const QString KEY_ID_PHONE_LINK_PHONE = "IDPhoneLink";
+    const QString KEY_D_LINK_PHONE = "ModifLink";
+
+    //TypePhone
+    const QString TABLE_TYPE_PHONE = "typePhone";
+    const QString KEY_ID_TYPE_PHONE = "IDType";
+    const QString KEY_NAME_TYPE_PHONE = "NameType";
+    const QString KEY_D_MODIF_TYPE_PHONE = "ModifType";
 
 };
 

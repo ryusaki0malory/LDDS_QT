@@ -128,14 +128,10 @@ void DbManager::onCreate()
     //Table cutomer
     QString CREATE_TABLE_CUSTOMER = "CREATE TABLE IF NOT EXISTS " + TABLE_CUSTOMER + " ( " +
                     KEY_ID_CUSTOMER + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    KEY_LAST_NAME_CUSTOMER + " TEXT," +
                     KEY_FIRST_NAME_CUSTOMER + " TEXT," +
-                    KEY_ADDRESS_CUSTOMER + " TEXT," +
-                    KEY_POSTAL_CODE_CUSTOMER + " VARCHAR(10)," +
-                    KEY_CITY_CUSTOMER + " TEXT," +
+                    KEY_LAST_NAME_CUSTOMER + " TEXT," +
                     KEY_COMMENT_CUSTOMER + " TEXT," +
                     KEY_ACCOUNT_ID_CUSTOMER + " INTEGER," +
-                    KEY_PHONE_CUSTOMER + " VARCHAR(20)," +
                     KEY_MAIL_CUSTOMER + " TEXT," +
                     KEY_D_MODIF_PAYMENT + " TEXT);";
     QSqlQuery queryCreateCustomer;
@@ -143,5 +139,78 @@ void DbManager::onCreate()
     if(!queryCreateCustomer.exec())
     {
         qWarning() << "Customer error :" << queryCreateCustomer.lastError();
+    }
+    //Table address
+    QString CREATE_TABLE_ADDRESS = "CREATE TABLE IF NOT EXISTS " + TABLE_ADDRESS + " ( " +
+                    KEY_ID_ADDRESS + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_ID_TYPE_ADDRESS + " INTEGER," +
+                    KEY_BODY_ADDRESS + " TEXT," +
+                    KEY_POSTAL_CODE_CUSTOMER + " VARCHAR(10)," +
+                    KEY_CITY_CUSTOMER + " TEXT," +
+                    KEY_D_MODIF_ADDRESS + " TEXT);";
+    QSqlQuery queryCreateAddress;
+    queryCreateAddress.prepare(CREATE_TABLE_ADDRESS);
+    if(!queryCreateAddress.exec())
+    {
+        qWarning() << "Address error :" << queryCreateAddress.lastError();
+    }
+    //Table link address
+    QString CREATE_TABLE_LINK_ADDRESS = "CREATE TABLE IF NOT EXISTS " + TABLE_LINK_ADDRESS + " ( " +
+                    KEY_ID_LINK_ADDRESS + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_ID_CUSTOMER_LINK_ADDRESS + " INTEGER," +
+                    KEY_ID_ADDRESS_LINK_ADDRESS + " INTEGER," +
+                    KEY_D_MODIF_LINK_ADDRESS + " TEXT);";
+    QSqlQuery queryCreateLinkAddress;
+    queryCreateLinkAddress.prepare(CREATE_TABLE_LINK_ADDRESS);
+    if(!queryCreateLinkAddress.exec())
+    {
+        qWarning() << "Link address error :" << queryCreateLinkAddress.lastError();
+    }
+    //Table type address
+    QString CREATE_TABLE_TYPE_ADDRESS = "CREATE TABLE IF NOT EXISTS " + TABLE_TYPE_ADDRESS + " ( " +
+                    KEY_ID_TYPE_ADDRESS + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_NAME_TYPE_ADDRESS + " TEXT," +
+                    KEY_D_MODIF_TYPE_ADDRESS + " TEXT);";
+    QSqlQuery queryCreateTypeAddress;
+    queryCreateTypeAddress.prepare(CREATE_TABLE_TYPE_ADDRESS);
+    if(!queryCreateTypeAddress.exec())
+    {
+        qWarning() << "Type address error :" << queryCreateTypeAddress.lastError();
+    }
+    //Table Phone
+    QString CREATE_TABLE_PHONE = "CREATE TABLE IF NOT EXISTS " + TABLE_PHONE + " ( " +
+                    KEY_ID_PHONE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_NAME_PHONE + " TEXT," +
+                    KEY_NUMBER_PHONE + " VARCHAR(20)," +
+                    KEY_ID_TYPE_PHONE_PHONE + " INTEGER," +
+                    KEY_D_MODIF_PHONE + " TEXT);";
+    QSqlQuery queryCreatePhone;
+    queryCreatePhone.prepare(CREATE_TABLE_PHONE);
+    if(!queryCreatePhone.exec())
+    {
+        qWarning() << "Phone error :" << queryCreatePhone.lastError();
+    }
+    //Table Link Phone
+    QString CREATE_TABLE_LINK_PHONE = "CREATE TABLE IF NOT EXISTS " + TABLE_LINK_PHONE + " ( " +
+                    KEY_ID_LINK_PHONE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_ID_CUSTOMER_LINK_PHONE + " INTEGER," +
+                    KEY_ID_PHONE_LINK_PHONE + " INTEGER," +
+                    KEY_D_LINK_PHONE + " TEXT);";
+    QSqlQuery queryCreateLinkPhone;
+    queryCreateLinkPhone.prepare(CREATE_TABLE_LINK_PHONE);
+    if(!queryCreateLinkPhone.exec())
+    {
+        qWarning() << "Link Phone error :" << queryCreateLinkPhone.lastError();
+    }
+    //Table Type Phone
+    QString CREATE_TABLE_TYPE_PHONE = "CREATE TABLE IF NOT EXISTS " + TABLE_TYPE_PHONE + " ( " +
+                    KEY_ID_TYPE_PHONE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_NAME_TYPE_PHONE + " TEXT," +
+                    KEY_D_MODIF_TYPE_PHONE + " TEXT);";
+    QSqlQuery queryCreateTypePhone;
+    queryCreateTypePhone.prepare(CREATE_TABLE_TYPE_PHONE);
+    if(!queryCreateTypePhone.exec())
+    {
+        qWarning() << "Type Phone error :" << queryCreateTypePhone.lastError();
     }
 }
