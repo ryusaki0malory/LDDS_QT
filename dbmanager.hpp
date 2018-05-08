@@ -71,6 +71,17 @@ protected:
     const QString KEY_NAME_PAYMENT = "Name";
     const QString KEY_D_MODIF_PAYMENT = "Modif";
 
+    //Articles
+    const QString TABLE_ARTICLE = "article";
+    const QString KEY_ID_ARTICLE = "ID";
+    const QString KEY_ID_FAMILY_ARTICLE = "IDFamily";
+    const QString KEY_PRICE_ARTICLE = "Price";
+    const QString KEY_ID_RETAILLER_ARTICLE = "IDRetailler";
+    const QString KEY_ID_TYPE_ARTICLE = "IDTypeArticle";
+    const QString KEY_COMMENT_ARTICLE = "CommentArticle";
+    const QString KEY_IMAGE_ARTICLE = "ImageArticle";
+    const QString KEY_D_MODIF_ARTICLE = "Modif";
+
     //Table customer
     const QString TABLE_CUSTOMER = "customer";
     const QString KEY_ID_CUSTOMER = "ID";

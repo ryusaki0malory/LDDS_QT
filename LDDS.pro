@@ -40,7 +40,8 @@ SOURCES += \
         typeArticlesPage.cpp \
         paymentMethodPage.cpp \
         baseUnitPage.cpp \
-        customerPage.cpp
+        customerPage.cpp \
+    articlePage.cpp
 
 
 HEADERS += \
@@ -54,7 +55,8 @@ HEADERS += \
         typeArticlesPage.hpp \
         paymentMethodPage.hpp \
         baseUnitPage.hpp \
-        customerPage.hpp
+        customerPage.hpp \
+    articlePage.hpp
 
 
 FORMS +=

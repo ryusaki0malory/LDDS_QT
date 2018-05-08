@@ -114,6 +114,22 @@ void DbManager::onCreate()
     {
         qWarning() << "baseUnitTable error :" << queryCreateBaseUnit.lastError();
     }
+    //Table Article
+    QString CREATE_TABLE_ARTICLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ARTICLE + " ( " +
+                    KEY_ID_ARTICLE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_ID_FAMILY_ARTICLE + " INTEGER," +
+                    KEY_PRICE_ARTICLE + " REAL," +
+                    KEY_ID_RETAILLER_ARTICLE + " INTEGER," +
+                    KEY_ID_TYPE_ARTICLE + " INTEGER," +
+                    KEY_COMMENT_ARTICLE + " TEXT," +
+                    KEY_IMAGE_ARTICLE + " BLOB," +
+                    KEY_D_MODIF_ARTICLE + " TEXT);";
+    QSqlQuery queryCreateArticle;
+    queryCreateArticle.prepare(CREATE_TABLE_ARTICLE);
+    if(!queryCreateArticle.exec())
+    {
+        qWarning() << "Article error :" << queryCreateArticle.lastError();
+    }
     //Table paymentMethod
     QString CREATE_TABLE_PAYMENT_METHOD = "CREATE TABLE IF NOT EXISTS " + TABLE_PAYMENT + " ( " +
                     KEY_ID_PAYMENT + " INTEGER PRIMARY KEY AUTOINCREMENT," +
