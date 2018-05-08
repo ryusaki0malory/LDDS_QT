@@ -10,6 +10,7 @@
 #include <QFormLayout>
 #include <QLineEdit>
 #include <QHeaderView>
+#include <QTextEdit>
 #include <QMessageBox>
 #include "tools.hpp"
 #include "dbhandler.hpp"
@@ -32,6 +33,9 @@ public:
 
     void setGroupBoxAttributes(QGroupBox* groupBox, const QString name);
     void setButtonAttributes(QPushButton* button, const QString toolTip);
+    void setLabelAttributes(QLabel* label);
+    void setLineAttributes(QLineEdit *line);
+    void setLineAttributes(QTextEdit *line);
     void setMessage(const status_t status, const QString message);
     void cleanItem();
     QGroupBox* getHead();
@@ -57,7 +61,7 @@ public:
     QLineEdit *Li_address;
     QLineEdit *Li_postal_code;
     QLineEdit *Li_city;
-    QLineEdit *Li_comment;
+    QTextEdit *Li_comment;
     QLineEdit *Li_phone;
     QLineEdit *Li_mail;
     QPushButton *But_valid;

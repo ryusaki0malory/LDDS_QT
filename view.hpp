@@ -16,6 +16,12 @@
 class View : public QMainWindow
 {
     Q_OBJECT
+
+public:
+    explicit View(DbHandler&);
+    ~View();
+
+private:
     typedef union windows //Error of conception constructors cannot be called...My mistake
     {
         MainPage *mainpage;
@@ -26,16 +32,9 @@ class View : public QMainWindow
         PaymentMethodPage *paymentMethodPage;
         CustomerPage *customerPage;
     }windows_t;
-
-private:
     windows_t _window; // enum of windows or page
     bool    loadPage(const Tools_LDDS::windowsName_t);// load the visual of this View
     DbHandler &db;
-
-public:
-    explicit View(DbHandler&);
-    ~View();
-
 
 public slots:
     void changePage(const Tools_LDDS::windowsName_t);

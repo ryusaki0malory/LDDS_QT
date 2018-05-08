@@ -37,6 +37,9 @@ private:
 
     void setGroupBoxAttributes(QGroupBox* groupBox, const QString name);
     void setButtonAttributes(QPushButton* button, const QString toolTip);
+    void setLabelAttributes(QLabel* label);
+    void setLineAttributes(QLineEdit *line);
+    void setLineAttributes(QTextEdit *line);
     void setMessage(const status_t status, const QString message);
     void cleanItem();
     QGroupBox* getHead();

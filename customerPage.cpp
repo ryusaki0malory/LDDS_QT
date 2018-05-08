@@ -135,7 +135,7 @@ QGroupBox* CustomerPage::getBottom()
     this->Li_address = new QLineEdit;
     this->Li_postal_code = new QLineEdit;
     this->Li_city = new QLineEdit;
-    this->Li_comment = new QLineEdit;
+    this->Li_comment = new QTextEdit;
     this->Li_phone = new QLineEdit;
     this->Li_mail = new QLineEdit;
     this->Li_ID->setReadOnly(true);
@@ -222,7 +222,7 @@ void CustomerPage::validItem()
             reply = QMessageBox::question(this, "add", "Do you want to add the new customer '" + this->Li_last_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
-                if (this->db.addCustomer(Li_first_name->text(), Li_last_name->text(), Li_address->text(), Li_postal_code->text(), Li_city->text(), Li_comment->text(), Li_phone->text(), Li_mail->text(), 0 ))
+                if (this->db.addCustomer(Li_first_name->text(), Li_last_name->text(), Li_address->text(), Li_postal_code->text(), Li_city->text(), Li_comment->toPlainText(), Li_phone->text(), Li_mail->text(), 0 ))
                 {
                     this->setMessage(SUCCESS, "Customer added");
                 }
@@ -245,7 +245,7 @@ void CustomerPage::validItem()
             reply = QMessageBox::question(this, "update", "Do you want to update the customer '" + this->Li_last_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
-                if (this->db.updateCustomer(this->Li_ID->text().toInt(), Li_first_name->text(), Li_last_name->text(), Li_address->text(), Li_postal_code->text(), Li_city->text(), Li_comment->text(), Li_phone->text(), Li_mail->text(), 0))
+                if (this->db.updateCustomer(this->Li_ID->text().toInt(), Li_first_name->text(), Li_last_name->text(), Li_address->text(), Li_postal_code->text(), Li_city->text(), Li_comment->toPlainText(), Li_phone->text(), Li_mail->text(), 0))
                 {
                     this->setMessage(SUCCESS, "Customer modified");
                 }
