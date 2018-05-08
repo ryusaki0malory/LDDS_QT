@@ -65,6 +65,21 @@ void    CustomerPage::setButtonAttributes(QPushButton* button, const QString too
    button->setStyleSheet("QPushButton {background-color: white; border-width: 1px; border-color: grey; font: bold 14px; padding: 25px; }");
 }
 
+void    CustomerPage::setLabelAttributes(QLabel* label)
+{
+    label->setFont(QFont("Times", 14, QFont::Bold));
+}
+
+void    CustomerPage::setLineAttributes(QLineEdit *line)
+{
+
+}
+
+void    CustomerPage::setLineAttributes(QTextEdit *line)
+{
+
+}
+
 //Frames
 
 QGroupBox* CustomerPage::getHead()
@@ -127,35 +142,52 @@ QGroupBox* CustomerPage::getBottom()
 {
     QGroupBox *groupBox = new QGroupBox(tr("CustomerB"));
     this->setGroupBoxAttributes(groupBox, "CustomerB");
-    QHBoxLayout *Layout = new QHBoxLayout(groupBox);
+    QGridLayout *Layout = new QGridLayout(groupBox);
 
+    this->La_ID = new QLabel(tr("ID customer"));
     this->Li_ID = new QLineEdit;
+    this->La_first_name = new QLabel(tr("First name"));
     this->Li_first_name = new QLineEdit;
+    this->La_last_name = new QLabel(tr("Last name"));
     this->Li_last_name = new QLineEdit;
+    this->La_address = new QLabel(tr("Address"));
     this->Li_address = new QLineEdit;
+    this->La_postal_code = new QLabel(tr("Postal code"));
     this->Li_postal_code = new QLineEdit;
+    this->La_city = new QLabel(tr("City"));
     this->Li_city = new QLineEdit;
+    this->La_comment = new QLabel(tr("Comment"));
     this->Li_comment = new QTextEdit;
+    this->La_phone = new QLabel(tr("Phone"));
     this->Li_phone = new QLineEdit;
+    this->La_mail = new QLabel(tr("Mail"));
     this->Li_mail = new QLineEdit;
     this->Li_ID->setReadOnly(true);
     this->Li_ID->setStyleSheet("background: grey");
-    QFormLayout *formLayout = new QFormLayout();
-    formLayout->addRow(tr("&First name"), Li_first_name);
-    formLayout->addRow(tr("&Last name"), Li_last_name);
-    formLayout->addRow(tr("&Address"), Li_address);
-    formLayout->addRow(tr("&Postal code"), Li_postal_code);
-    formLayout->addRow(tr("&City"), Li_city);
-    formLayout->addRow(tr("&Comment"), Li_comment);
-    formLayout->addRow(tr("&Phone"), Li_phone);
-    formLayout->addRow(tr("&Mail"), Li_mail);
-    formLayout->addRow(tr("ID customer"), Li_ID);
-    Layout->addLayout(formLayout);
 
     this->But_valid = new QPushButton("Valid");
     this->setButtonAttributes(But_valid, "Valid modifications");
     connect(But_valid, SIGNAL(clicked()), this, SLOT(validItem()));
-    Layout->addWidget(But_valid);
+
+    Layout->addWidget(La_first_name, 0, 0);
+    Layout->addWidget(Li_first_name, 0, 1);
+    Layout->addWidget(La_last_name, 0, 2);
+    Layout->addWidget(Li_last_name, 0, 3);
+    Layout->addWidget(La_address, 1, 0);
+    Layout->addWidget(Li_address, 1, 1);
+    Layout->addWidget(La_postal_code, 1, 2);
+    Layout->addWidget(Li_postal_code, 1, 3);
+    Layout->addWidget(La_city, 2, 0);
+    Layout->addWidget(Li_city, 2, 1);
+    Layout->addWidget(La_phone, 2, 2);
+    Layout->addWidget(Li_phone, 2, 3);
+    Layout->addWidget(La_mail, 3, 0);
+    Layout->addWidget(Li_mail, 3, 1);
+    Layout->addWidget(La_ID, 3, 2);
+    Layout->addWidget(Li_ID, 3, 3);
+    Layout->addWidget(La_comment, 4, 0);
+    Layout->addWidget(Li_comment, 4, 1);
+    Layout->addWidget(But_valid, 5, 0, 5, 3);
 
     groupBox->setLayout(Layout);
     return (groupBox);

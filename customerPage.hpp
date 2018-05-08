@@ -55,14 +55,23 @@ public:
     QTableView *table;
 
     //bottom
+    QLabel    *La_ID;
     QLineEdit *Li_ID;
+    QLabel    *La_first_name;
     QLineEdit *Li_first_name;
+    QLabel    *La_last_name;
     QLineEdit *Li_last_name;
+    QLabel    *La_address;
     QLineEdit *Li_address;
+    QLabel    *La_postal_code;
     QLineEdit *Li_postal_code;
+    QLabel    *La_city;
     QLineEdit *Li_city;
+    QLabel    *La_comment;
     QTextEdit *Li_comment;
+    QLabel    *La_phone;
     QLineEdit *Li_phone;
+    QLabel    *La_mail;
     QLineEdit *Li_mail;
     QPushButton *But_valid;
 
