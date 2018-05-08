@@ -58,26 +58,39 @@ void    FamilyPage::setButtonAttributes(QPushButton* button, const QString toolT
    button->setStyleSheet("QPushButton {background-color: white; border-width: 1px; border-color: grey; font: bold 14px; padding: 25px; }");
 }
 
+void    FamilyPage::setLabelAttributes(QLabel* label)
+{
+    label->setFont(QFont("Times", 14, QFont::Bold));
+}
+
+void    FamilyPage::setLineAttributes(QLineEdit *line)
+{
+
+}
+
 //Frames
-QGroupBox* FamilyPage::getBottom()
+
+QGroupBox* FamilyPage::getHead()
 {
     QGroupBox *groupBox = new QGroupBox(tr("Family"));
     this->setGroupBoxAttributes(groupBox, "Family");
+
     QHBoxLayout *Layout = new QHBoxLayout(groupBox);
 
-    this->Li_name = new QLineEdit;
-    this->Li_ID = new QLineEdit;
-    this->Li_ID->setReadOnly(true);
-    this->Li_ID->setStyleSheet("background: grey");
-    QFormLayout *formLayout = new QFormLayout();
-    formLayout->addRow(tr("&Nom de la famille d'article"), Li_name);
-    formLayout->addRow(tr("ID famille article"), Li_ID);
-    Layout->addLayout(formLayout);
+    this->But_return = new QPushButton("Return");
+    this->setButtonAttributes(But_return, "Return to menu");
+    connect(But_return, SIGNAL(clicked()), this, SLOT(emitLoadMAIN_PAGE()));
+    Layout->addWidget(But_return);
 
-    this->But_valid = new QPushButton("Valid");
-    this->setButtonAttributes(But_valid, "Valid modifications");
-    connect(But_valid, SIGNAL(clicked()), this, SLOT(validFamily()));
-    Layout->addWidget(But_valid);
+    this->But_add = new QPushButton("Add");
+    this->setButtonAttributes(But_add, "Add new family");
+    connect(But_add, SIGNAL(clicked()), this, SLOT(addFamily()));
+    Layout->addWidget(But_add);
+
+    this->but_delete = new QPushButton("Delete");
+    this->setButtonAttributes(but_delete, "Delete selected family");
+    connect(but_delete, SIGNAL(clicked()), this, SLOT(deleteFamily()));
+    Layout->addWidget(but_delete);
 
     groupBox->setLayout(Layout);
     return (groupBox);
@@ -113,27 +126,30 @@ QGroupBox* FamilyPage::getList()
     return (groupBox);
 }
 
-QGroupBox* FamilyPage::getHead()
+QGroupBox* FamilyPage::getBottom()
 {
     QGroupBox *groupBox = new QGroupBox(tr("Family"));
     this->setGroupBoxAttributes(groupBox, "Family");
+    QGridLayout *Layout = new QGridLayout(groupBox);
 
-    QHBoxLayout *Layout = new QHBoxLayout(groupBox);
+    this->La_name = new QLabel(tr("Nom de la famille d'article"));
+    this->Li_name = new QLineEdit;
+    this->La_ID = new QLabel(tr("ID famille article"));
+    this->Li_ID = new QLineEdit;
+    this->setLabelAttributes(this->La_name);
+    this->setLabelAttributes(this->La_ID);
+    this->Li_ID->setReadOnly(true);
+    this->Li_ID->setStyleSheet("background: grey");
 
-    this->But_return = new QPushButton("Return");
-    this->setButtonAttributes(But_return, "Return to menu");
-    connect(But_return, SIGNAL(clicked()), this, SLOT(emitLoadMAIN_PAGE()));
-    Layout->addWidget(But_return);
+    this->But_valid = new QPushButton("Valid");
+    this->setButtonAttributes(But_valid, "Valid modifications");
+    connect(But_valid, SIGNAL(clicked()), this, SLOT(validFamily()));
 
-    this->But_add = new QPushButton("Add");
-    this->setButtonAttributes(But_add, "Add new family");
-    connect(But_add, SIGNAL(clicked()), this, SLOT(addFamily()));
-    Layout->addWidget(But_add);
-
-    this->but_delete = new QPushButton("Delete");
-    this->setButtonAttributes(but_delete, "Delete selected family");
-    connect(but_delete, SIGNAL(clicked()), this, SLOT(deleteFamily()));
-    Layout->addWidget(but_delete);
+    Layout->addWidget(La_name, 0, 0);
+    Layout->addWidget(Li_name, 0, 1);
+    Layout->addWidget(La_ID, 1, 0);
+    Layout->addWidget(Li_ID, 1, 1);
+    Layout->addWidget(But_valid, 2, 0, 2, 2);
 
     groupBox->setLayout(Layout);
     return (groupBox);
@@ -144,7 +160,6 @@ void FamilyPage::rowSelected(const QItemSelection& selectionUp, const QItemSelec
 {
     (void)selectionUp;
     (void)selectionDown;
-    //QMessageBox::information(this,"", QString::number(indexes.at(0).row()));
 
     QItemSelectionModel *select = table->selectionModel();
     this->Li_ID->setText(select->selectedRows(0).value(0).data().toString());

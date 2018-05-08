@@ -58,7 +58,9 @@ private:
     QTableView *table;
 
     //bottom
+    QLabel *La_name;
     QLineEdit *Li_name;
+    QLabel *La_ID;
     QLineEdit *Li_ID;
     QPushButton *But_valid;
 
