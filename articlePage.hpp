@@ -6,10 +6,13 @@
 #include <QTableView>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QTextEdit>
 #include <QFormLayout>
+#include <QHeaderView>
 #include <QLabel>
 #include <QMessageBox>
 #include <QDoubleSpinBox>
+#include <QComboBox>
 #include <QStandardItemModel>
 #include "tools.hpp"
 #include "dbhandler.hpp"
@@ -56,10 +59,22 @@ private:
     //bottom
     QLabel    *La_name;
     QLineEdit *Li_name;
+    QLabel    *La_comment;
+    QTextEdit *Li_comment;
     QLabel    *La_ID;
     QLineEdit *Li_ID;
-    QLabel    *La_mult;
-    QDoubleSpinBox *Li_mult;
+    QLabel    *La_prix;
+    QDoubleSpinBox *Li_prix;
+    QLabel    *La_qte;
+    QDoubleSpinBox *Li_qte;
+    QLabel    *La_family;
+    QComboBox *Li_family;
+    QLabel    *La_retailer;
+    QComboBox *Li_retailer;
+    QLabel    *La_type;
+    QComboBox *Li_type;
+    QLabel    *La_image;
+    QLabel    *Li_image;
     QPushButton *But_valid;
 
 
