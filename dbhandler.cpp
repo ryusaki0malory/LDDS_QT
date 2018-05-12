@@ -678,7 +678,7 @@ void DbHandler::getArticle(QStandardItemModel *modele)
             IMAGE = QImage::fromData(BIT_ARRAY_IMAGE,"PNG");
             QStandardItem *ITEM_IMAGE = new QStandardItem();
             ITEM_IMAGE->setData(QVariant(QPixmap::fromImage(IMAGE)), Qt::DecorationRole);
-            modele->setItem(modele->rowCount() -1 ,11, new QStandardItem());
+            modele->setItem(modele->rowCount() -1 ,11, ITEM_IMAGE);
             //query FAMILY
             QSqlQuery queryFamily;
             queryFamily.prepare("SELECT " +

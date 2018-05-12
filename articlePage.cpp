@@ -72,7 +72,22 @@ void    ArticlePage::loadQComboBox()
         this->Li_type->addItem(it.value(), it.key());
     }
 }
+void ArticlePage::chooseImage()
+{
+    QString filename = QFileDialog::getOpenFileName(this, tr("Choose new image"),"", tr("Images (*.png *.jpg *.jpeg *.bmp *.gif)"));
 
+    if (QString::compare(filename, QString()) != 0)
+    {
+        QImage image;
+        bool valid = image.load(filename);
+
+        if (valid)
+        {
+            image = image.scaledToWidth(this->Li_image->width(), Qt::SmoothTransformation);
+            this->Li_image->setPixmap(QPixmap::fromImage(image));
+        }
+    }
+}
 //setAttibutes
 
 void   ArticlePage::setGroupBoxAttributes(QGroupBox* groupBox, const QString name = "")
@@ -182,8 +197,9 @@ QGroupBox* ArticlePage::getBottom()
     this->Li_retailer = new QComboBox;
     this->La_type = new QLabel(tr("Type article"));
     this->Li_type = new QComboBox;
-    this->La_image = new QLabel(tr("Image article"));
+    this->La_image = new QPushButton(tr("Image article"));
     this->Li_image = new QLabel;
+    connect(La_image, SIGNAL(clicked()), this, SLOT(chooseImage()));
     this->loadQComboBox();
     this->setLabelAttributes(this->La_name);
     this->setLabelAttributes(this->La_ID);
@@ -194,24 +210,24 @@ QGroupBox* ArticlePage::getBottom()
     this->setLabelAttributes(this->La_family);
     this->setLabelAttributes(this->La_retailer);
     this->setLabelAttributes(this->La_type);
-    this->setLabelAttributes(this->La_image);
+    this->setButtonAttributes(this->La_image, "Change image article");
     this->Li_ID->setReadOnly(true);
     this->Li_ID->setStyleSheet("background: grey");
     this->Li_prix->setDecimals(2);
     this->Li_prix->setMaximum(1000000);
 
-    QString path = this->db.getPathLogo();
-    if (QString::compare(path,QString()) != 0)
-    {
-        QImage image;
-        bool valid = image.load(path);
+//    QString path = this->db.getPathLogo();
+//    if (QString::compare(path,QString()) != 0)
+//    {
+//        QImage image;
+//        bool valid = image.load(path);
 
-        if (valid)
-        {
-            //image = image.scaledToWidth(this->_logo->width(), Qt::SmoothTransformation);
-            this->Li_image->setPixmap(QPixmap::fromImage(image));
-        }
-    }
+//        if (valid)
+//        {
+//            //image = image.scaledToWidth(this->_logo->width(), Qt::SmoothTransformation);
+//            this->Li_image->setPixmap(QPixmap::fromImage(image));
+//        }
+//    }
 
     this->But_valid = new QPushButton("Valid");
     this->setButtonAttributes(But_valid, "Valid modifications");
@@ -256,7 +272,7 @@ void ArticlePage::rowSelected(const QItemSelection& selectionUp, const QItemSele
     this->Li_retailer->setCurrentIndex(Li_retailer->findData(select->selectedRows(7).value(0).data().toString()));
     this->Li_type->setCurrentIndex(Li_type->findData(select->selectedRows(9).value(0).data().toString()));
     this->Li_comment->setText(select->selectedRows(10).value(0).data().toString());
-    //this->Li_image->setPixmap(select->selectedRows(11).value(0).data().value<QPixmap>());
+    //this->Li_image->setPixmap(select->selectedRows(11).value(0).data<QPixmap>());
 }
 
 void ArticlePage::addItem()

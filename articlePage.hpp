@@ -15,6 +15,7 @@
 #include <QComboBox>
 #include <QStandardItemModel>
 #include <QBuffer>
+#include <QFileDialog>
 #include "tools.hpp"
 #include "dbhandler.hpp"
 
@@ -75,7 +76,7 @@ private:
     QComboBox *Li_retailer;
     QLabel    *La_type;
     QComboBox *Li_type;
-    QLabel    *La_image;
+    QPushButton    *La_image;
     QLabel    *Li_image;
     QPushButton *But_valid;
 
@@ -89,6 +90,7 @@ public slots:
     void deleteItem();
     void validItem();
     void rowSelected(const QItemSelection&, const QItemSelection&);
+    void chooseImage();
 };
 
 #endif // ARTICLEPAGE_HPP
