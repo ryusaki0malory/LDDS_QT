@@ -14,6 +14,7 @@
 #include <QDoubleSpinBox>
 #include <QComboBox>
 #include <QStandardItemModel>
+#include <QBuffer>
 #include "tools.hpp"
 #include "dbhandler.hpp"
 
@@ -40,6 +41,7 @@ private:
     void setLineAttributes(QLineEdit *line);
     void setMessage(const status_t status, const QString message);
     void cleanItem();
+    void loadQComboBox();
     QGroupBox* getHead();
     QGroupBox* getList();
     QGroupBox* getBottom();

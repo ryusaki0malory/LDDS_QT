@@ -40,6 +40,37 @@ void ArticlePage::cleanItem()
 {
     this->Li_ID->setText("");
     this->Li_name->setText("");
+    this->Li_comment->setText("");
+    this->Li_prix->setValue(0);
+    this->Li_qte->setValue(0);
+    this->Li_family->setCurrentIndex(-1);
+    this->Li_retailer->setCurrentIndex(-1);
+    this->Li_type->setCurrentIndex(-1);
+    //this->Li_image->setCurrentIndex(-1);
+}
+
+void    ArticlePage::loadQComboBox()
+{
+    QMap <QString, QString> mapFamily;
+    this->db.getFamily(mapFamily);
+    for(QMap <QString, QString>::iterator it=mapFamily.begin() ; it!=mapFamily.end() ; ++it)
+    {
+        this->Li_family->addItem(it.value(), it.key());
+    }
+
+    QMap <QString, QString> mapRetailer;
+    this->db.getRetailler(mapRetailer);
+    for(QMap <QString, QString>::iterator it=mapRetailer.begin() ; it!=mapRetailer.end() ; ++it)
+    {
+        this->Li_retailer->addItem(it.value(), it.key());
+    }
+
+    QMap <QString, QString> maType;
+    this->db.getTypeArticle(maType);
+    for(QMap <QString, QString>::iterator it=maType.begin() ; it!=maType.end() ; ++it)
+    {
+        this->Li_type->addItem(it.value(), it.key());
+    }
 }
 
 //setAttibutes
@@ -106,16 +137,19 @@ QGroupBox* ArticlePage::getList()
     Layout->addWidget(label);
 
     //The list
-    this->modele = new QStandardItemModel(0, 9);
+    this->modele = new QStandardItemModel(0, 12);
     QStringList lst;
-    lst << "Id" << "Name article" << "Qte. article" << "Family" << "Price article" << "Retailer" << "Type" << "Comment" << "Image";
+    lst << "Id" << "Name article" << "Qte. article" << "Family" << "IdFamily" << "Price article" << "Retailer" << "IDRetailler" << "Type" << " IDType" << "Comment" << "Image";
     this->modele->setHorizontalHeaderLabels(lst);
-    //this->db.getArticle(this->modele);
+    this->db.getArticle(this->modele);
     this->table = new QTableView;
     table->setModel(modele);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
-    table->horizontalHeader()->setSectionResizeMode(8, QHeaderView::Stretch);
+    table->horizontalHeader()->setSectionResizeMode(11, QHeaderView::Stretch);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table->setColumnHidden(4, true);
+    table->setColumnHidden(7, true);
+    table->setColumnHidden(9, true);
     connect(table->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(rowSelected(const QItemSelection&, const QItemSelection&)));
     Layout->addWidget(table);
 
@@ -150,6 +184,7 @@ QGroupBox* ArticlePage::getBottom()
     this->Li_type = new QComboBox;
     this->La_image = new QLabel(tr("Image article"));
     this->Li_image = new QLabel;
+    this->loadQComboBox();
     this->setLabelAttributes(this->La_name);
     this->setLabelAttributes(this->La_ID);
     this->setLabelAttributes(this->La_name);
@@ -197,8 +232,10 @@ QGroupBox* ArticlePage::getBottom()
     Layout->addWidget(La_type, 5, 0);
     Layout->addWidget(Li_type, 5, 1);
     Layout->addWidget(La_image, 1, 2, 1, 3);
-    Layout->addWidget(Li_image, 2, 2, 4, 3);
-    Layout->addWidget(But_valid, 5, 0, 5, 4);
+    Layout->addWidget(Li_image, 2, 2, 5, 3);
+    Layout->addWidget(La_comment, 6, 0);
+    Layout->addWidget(Li_comment, 7, 0, 7, 2);
+    Layout->addWidget(But_valid, 7, 2, 7, 4);
 
     groupBox->setLayout(Layout);
     return (groupBox);
@@ -213,11 +250,18 @@ void ArticlePage::rowSelected(const QItemSelection& selectionUp, const QItemSele
     QItemSelectionModel *select = table->selectionModel();
     this->Li_ID->setText(select->selectedRows(0).value(0).data().toString());
     this->Li_name->setText(select->selectedRows(1).value(0).data().toString());
+    this->Li_qte->setValue(select->selectedRows(2).value(0).data().toDouble());
+    this->Li_family->setCurrentIndex(Li_family->findData(select->selectedRows(4).value(0).data().toString()));
+    this->Li_prix->setValue(select->selectedRows(5).value(0).data().toDouble());
+    this->Li_retailer->setCurrentIndex(Li_retailer->findData(select->selectedRows(7).value(0).data().toString()));
+    this->Li_type->setCurrentIndex(Li_type->findData(select->selectedRows(9).value(0).data().toString()));
+    this->Li_comment->setText(select->selectedRows(10).value(0).data().toString());
+    //this->Li_image->setPixmap(select->selectedRows(11).value(0).data().value<QPixmap>());
 }
 
 void ArticlePage::addItem()
 {
-    this->setMessage(SUCCESS, "Please insert a new base unit");
+    this->setMessage(SUCCESS, "Please insert a new article");
     this->cleanItem();
 }
 
@@ -226,24 +270,24 @@ void ArticlePage::deleteItem()
     if (this->Li_ID->text().toStdString() != "")
     {
         QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this, "deleted", "Do you want to delete the base unit '" + this->Li_name->text() + "'?",
+        reply = QMessageBox::question(this, "deleted", "Do you want to delete the article '" + this->Li_name->text() + "'?",
                                         QMessageBox::Yes|QMessageBox::No);
         if (reply == QMessageBox::Yes) {
-//            if (this->db.deleteArticle(this->Li_ID->text().toInt()))
-//            {
-//                this->setMessage(SUCCESS, "base unit deleted");
-//            }
-//            else
-//            {
-//                this->setMessage(FAIL, "Error occured");
-//            }
+            if (this->db.deleteArticle(this->Li_ID->text().toInt()))
+            {
+                this->setMessage(SUCCESS, "base unit deleted");
+            }
+            else
+            {
+                this->setMessage(FAIL, "Error occured");
+            }
           } else {
             this->setMessage(FAIL, "");
           }
     }
     //actualise
     this->modele->setRowCount(0);
-    //this->db.getArticle(this->modele);
+    this->db.getArticle(this->modele);
     this->cleanItem();
 }
 
@@ -255,17 +299,31 @@ void ArticlePage::validItem()
         if (this->Li_name->text().toStdString() != "")
         {
             QMessageBox::StandardButton reply;
-            reply = QMessageBox::question(this, "add", "Do you want to add the new base unit '" + this->Li_name->text() + "'?",
+            reply = QMessageBox::question(this, "add", "Do you want to add the new article '" + this->Li_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
-//                if (this->db.addArticle(this->Li_name->text(), (double)this->Li_mult->value()))
-//                {
-//                    this->setMessage(SUCCESS, "new base unit added");
-//                }
-//                else
-//                {
-//                    this->setMessage(FAIL, "Error occured");
-//                }
+                const QPixmap *pixmapTempo = this->Li_image->pixmap();
+                QByteArray bArray;
+                if (pixmapTempo)
+                {
+                    QImage imageTempo(pixmapTempo->toImage());
+                    QBuffer buffer(&bArray);
+                    buffer.open(QIODevice::WriteOnly);
+                    imageTempo.save(&buffer, "PNG");
+
+                }
+                if (this->db.addArticle(this->Li_name->text(), (double)this->Li_prix->value(), (double)this->Li_qte->value(),
+                                         this->Li_family->itemData(this->Li_family->currentIndex()).toInt(),
+                                          this->Li_retailer->itemData(this->Li_retailer->currentIndex()).toInt(),
+                                           this->Li_type->itemData(this->Li_type->currentIndex()).toInt(),
+                                            this->Li_comment->toPlainText(), bArray))
+                {
+                    this->setMessage(SUCCESS, "new article added");
+                }
+                else
+                {
+                    this->setMessage(FAIL, "Error occured");
+                }
              }
              else
              {
@@ -278,7 +336,7 @@ void ArticlePage::validItem()
         if (this->Li_name->text().toStdString() != "")
         {
             QMessageBox::StandardButton reply;
-            reply = QMessageBox::question(this, "update", "Do you want to update the base unit '" + this->Li_name->text() + "'?",
+            reply = QMessageBox::question(this, "update", "Do you want to update the article '" + this->Li_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
 //                if (this->db.updateArticle(this->Li_ID->text().toInt(), this->Li_name->text(), this->Li_mult->value()))
@@ -298,7 +356,7 @@ void ArticlePage::validItem()
     }
     //actualise
     this->modele->setRowCount(0);
-    //this->db.getArticle(this->modele);
+    this->db.getArticle(this->modele);
     this->cleanItem();
 }
 

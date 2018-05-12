@@ -117,6 +117,8 @@ void DbManager::onCreate()
     //Table Article
     QString CREATE_TABLE_ARTICLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ARTICLE + " ( " +
                     KEY_ID_ARTICLE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_NAME_ARTICLE + " TEXT," +
+                    KEY_QTE_ARTICLE + " REAL," +
                     KEY_ID_FAMILY_ARTICLE + " INTEGER," +
                     KEY_PRICE_ARTICLE + " REAL," +
                     KEY_ID_RETAILLER_ARTICLE + " INTEGER," +

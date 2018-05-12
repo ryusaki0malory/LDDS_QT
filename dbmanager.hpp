@@ -74,6 +74,8 @@ protected:
     //Articles
     const QString TABLE_ARTICLE = "article";
     const QString KEY_ID_ARTICLE = "ID";
+    const QString KEY_NAME_ARTICLE = "NameArticle";
+    const QString KEY_QTE_ARTICLE = "QteArticle";
     const QString KEY_ID_FAMILY_ARTICLE = "IDFamily";
     const QString KEY_PRICE_ARTICLE = "Price";
     const QString KEY_ID_RETAILLER_ARTICLE = "IDRetailler";
