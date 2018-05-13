@@ -355,14 +355,28 @@ void ArticlePage::validItem()
             reply = QMessageBox::question(this, "update", "Do you want to update the article '" + this->Li_name->text() + "'?",
                                             QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
-//                if (this->db.updateArticle(this->Li_ID->text().toInt(), this->Li_name->text(), this->Li_mult->value()))
-//                {
-//                    this->setMessage(SUCCESS, "Base unit modified");
-//                }
-//                else
-//                {
-//                    this->setMessage(FAIL, "Error occured");
-//                }
+                const QPixmap *pixmapTempo = this->Li_image->pixmap();
+                QByteArray bArray;
+                if (pixmapTempo)
+                {
+                    QImage imageTempo(pixmapTempo->toImage());
+                    QBuffer buffer(&bArray);
+                    buffer.open(QIODevice::WriteOnly);
+                    imageTempo.save(&buffer, "PNG");
+
+                }
+                if (this->db.updateArticle(this->Li_ID->text().toInt(), this->Li_name->text(), (double)this->Li_prix->value(), (double)this->Li_qte->value(),
+                                           this->Li_family->itemData(this->Li_family->currentIndex()).toInt(),
+                                            this->Li_retailer->itemData(this->Li_retailer->currentIndex()).toInt(),
+                                             this->Li_type->itemData(this->Li_type->currentIndex()).toInt(),
+                                              this->Li_comment->toPlainText(), bArray))
+                {
+                    this->setMessage(SUCCESS, "Base unit modified");
+                }
+                else
+                {
+                    this->setMessage(FAIL, "Error occured");
+                }
             }
             else
             {

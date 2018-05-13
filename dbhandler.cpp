@@ -800,32 +800,53 @@ bool DbHandler::addArticle(const QString &name,
     }
     return (success);
 }
-//bool DbHandler::updateArticle(const int &ID,
-//                                    const QString &name)
-//{
-//    bool success = false;
-//    QSqlQuery query;
+bool DbHandler::updateArticle(const int &ID,
+                              const QString &name,
+                              const double &price,
+                              const double &qte,
+                              const int &family,
+                              const int &retailer,
+                              const int &type,
+                              const QString &comment,
+                              const QByteArray &image)
+{
+    bool success = false;
+    QSqlQuery query;
 
-//    query.prepare("UPDATE " +
-//                        TABLE_PAYMENT +
-//                  " SET " +
-//                        KEY_NAME_PAYMENT + " = : " + KEY_NAME_PAYMENT + "," +
-//                        KEY_D_MODIF_PAYMENT + " =  DATETIME('now') " +
-//                  "WHERE " +
-//                        KEY_ID_PAYMENT + " = :" + KEY_ID_PAYMENT );
-//    query.bindValue(":"+ KEY_NAME_PAYMENT, name);
-//    query.bindValue(":"+ KEY_ID_PAYMENT, ID);
-//    if(query.exec())
-//    {
-//        success = true;
-//    }
-//    else
-//    {
-//        qWarning() << "updatePaymentMethod error :" << query.lastError();
-//    }
+    query.prepare("UPDATE " +
+                        TABLE_ARTICLE +
+                  " SET " +
+                        KEY_NAME_ARTICLE + " = :" + KEY_NAME_ARTICLE + "," +
+                        KEY_QTE_ARTICLE + " = :" + KEY_QTE_ARTICLE + "," +
+                        KEY_ID_FAMILY_ARTICLE + " = :" + KEY_ID_FAMILY_ARTICLE + "," +
+                        KEY_PRICE_ARTICLE + " = :" + KEY_PRICE_ARTICLE + "," +
+                        KEY_ID_RETAILLER_ARTICLE + " = :" + KEY_ID_RETAILLER_ARTICLE + "," +
+                        KEY_ID_TYPE_ARTICLE + " = :" + KEY_ID_TYPE_ARTICLE + "," +
+                        KEY_COMMENT_ARTICLE + " = :" + KEY_COMMENT_ARTICLE + "," +
+                        KEY_IMAGE_ARTICLE + " = :" + KEY_IMAGE_ARTICLE + "," +
+                        KEY_D_MODIF_ARTICLE + " =  DATETIME('now') " +
+                  "WHERE " +
+                        KEY_ID_ARTICLE + " = :" + KEY_ID_ARTICLE );
+    query.bindValue(":"+ KEY_NAME_ARTICLE, name);
+    query.bindValue(":"+ KEY_QTE_ARTICLE, qte);
+    query.bindValue(":"+ KEY_ID_FAMILY_ARTICLE, family);
+    query.bindValue(":"+ KEY_PRICE_ARTICLE, price);
+    query.bindValue(":"+ KEY_ID_RETAILLER_ARTICLE, retailer);
+    query.bindValue(":"+ KEY_ID_TYPE_ARTICLE, type);
+    query.bindValue(":"+ KEY_COMMENT_ARTICLE, comment);
+    query.bindValue(":"+ KEY_IMAGE_ARTICLE, image);
+    query.bindValue(":"+ KEY_ID_ARTICLE, ID);
+    if(query.exec())
+    {
+        success = true;
+    }
+    else
+    {
+        qWarning() << "updateArticle error :" << query.lastError();
+    }
 
-//    return (success);
-//}
+    return (success);
+}
 bool DbHandler::deleteArticle(const int &ID)
 {
     bool success = false;
