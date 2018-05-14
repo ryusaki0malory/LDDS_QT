@@ -41,7 +41,8 @@ SOURCES += \
         paymentMethodPage.cpp \
         baseUnitPage.cpp \
         customerPage.cpp \
-    articlePage.cpp
+    articlePage.cpp \
+    parameterPage.cpp
 
 
 HEADERS += \
@@ -56,7 +57,8 @@ HEADERS += \
         paymentMethodPage.hpp \
         baseUnitPage.hpp \
         customerPage.hpp \
-    articlePage.hpp
+    articlePage.hpp \
+    parameterPage.hpp
 
 
 FORMS +=

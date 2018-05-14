@@ -66,6 +66,12 @@ bool View::loadPage(const Tools_LDDS::windowsName_t name)
             setCentralWidget(this->_window.customerPage);
             this->_window.customerPage->setLayoutWindow();
             break;
+        case Tools_LDDS::PARAMETER_PAGE:
+            this->_window.parameterPage = new ParameterPage(db, this);
+            connect(this->_window.parameterPage, SIGNAL(loadPageParent(const Tools_LDDS::windowsName_t)), this, SLOT(changePage(const Tools_LDDS::windowsName_t)));
+            setCentralWidget(this->_window.parameterPage);
+            this->_window.parameterPage->setLayoutWindow();
+            break;
     }
     return (true);
 }

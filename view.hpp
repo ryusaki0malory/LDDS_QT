@@ -11,6 +11,7 @@
 #include "paymentMethodPage.hpp"
 #include "customerPage.hpp"
 #include "articlePage.hpp"
+#include "parameterPage.hpp"
 #include "dbhandler.hpp"
 #include "tools.hpp"
 
@@ -33,6 +34,7 @@ private:
         PaymentMethodPage *paymentMethodPage;
         CustomerPage *customerPage;
         ArticlePage *articlePage;
+        ParameterPage *parameterPage;
     }windows_t;
     windows_t _window; // enum of windows or page
     bool    loadPage(const Tools_LDDS::windowsName_t);// load the visual of this View
