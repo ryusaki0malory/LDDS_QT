@@ -2,7 +2,18 @@
 
 View::View(DbHandler &newDb) : db(newDb)
 {
-    this->resize(600, 800);
+    if (this->db.status != DbHandler::RUNNING)
+    {
+        this->resize(600, 800);
+//        QScreen *screen = QGuiApplication::primaryScreen();
+//        QRect  screenGeometry = screen->geometry();
+//        int height = screenGeometry.height();
+//        int width = screenGeometry.width();
+    }
+    else
+    {
+
+    }
     QString windowTitle = "LDDS project. Vers: " + static_cast<QString>(VERSION);
     this->setWindowTitle(windowTitle);
     this->loadPage(Tools_LDDS::MAIN_PAGE);

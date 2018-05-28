@@ -1,4 +1,4 @@
-#include "mainpage.hpp"
+#include "mainPage.hpp"
 
 MainPage::MainPage(DbHandler &newDb, QWidget *parent) : QWidget(parent), db(newDb)
 {

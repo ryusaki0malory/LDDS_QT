@@ -9,6 +9,8 @@
 #include <QGridLayout>
 #include <QPushButton>
 #include <QMessageBox>
+#include <fstream>
+#include <QDebug>
 #include "tools.hpp"
 #include "dbhandler.hpp"
 
@@ -28,6 +30,7 @@ private:
     QPushButton *But_return;
     QPushButton *First_Init;
     QPushButton *Change_Logo;
+    QPushButton *Change_Color;
     QGroupBox *parameterGroupBox;
     DbHandler &db;
 
@@ -38,6 +41,7 @@ public slots:
     void emitLoadMAIN_PAGE();
     void firstInit();
     void changeLogo();
+    void changeColor();
 };
 
 #endif // PARAMETERPAGE_HPP

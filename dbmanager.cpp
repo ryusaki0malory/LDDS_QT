@@ -16,9 +16,10 @@ bool DbManager::init(const QString &path)
 {
     if (path != "")
     {
-        QFile file(path + "LDDS.ini");
+        QFile file(path + "/LDDS.ini");
         if(!file.open(QIODevice::ReadOnly)) {
             qWarning() << "Init:" << file.errorString();
+            this->status = ERROR_INITIALISATION;
             return(false);
         }
         QTextStream in(&file);
@@ -40,9 +41,11 @@ bool DbManager::init(const QString &path)
         }
 
         file.close();
+        this->status = RUNNING;
         this->connection();
         return (true);
     }
+    this->status = ERROR_INITIALISATION;
     return (false);
 }
 
@@ -53,10 +56,12 @@ void DbManager::connection()
 
     if (!this->db.open())
     {
+        this->status = ERROR_INITIALISATION;
         qWarning() << "Error: connection with database fail";
     }
     else
     {
+        this->status = RUNNING;
         qDebug() << "Database: connection ok";
         this->onCreate();
     }
@@ -73,6 +78,7 @@ void DbManager::onCreate()
     queryCreateFamily.prepare(CREATE_TABLE_FAMILY);
     if(!queryCreateFamily.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "familyTable error :" << queryCreateFamily.lastError();
     }
 
@@ -86,6 +92,7 @@ void DbManager::onCreate()
     queryCreateRetailler.prepare(CREATE_TABLE_RETAILLER);
     if(!queryCreateRetailler.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "retaillerTable error :" << queryCreateRetailler.lastError();
     }
 
@@ -100,6 +107,7 @@ void DbManager::onCreate()
     queryCreateTypeArticle.prepare(CREATE_TABLE_TYPE_ARTICLE);
     if(!queryCreateTypeArticle.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "typeArticleTable error :" << queryCreateTypeArticle.lastError();
     }
     //Table baseunit
@@ -112,6 +120,7 @@ void DbManager::onCreate()
     queryCreateBaseUnit.prepare(CREATE_TABLE_BASE_UNIT);
     if(!queryCreateBaseUnit.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "baseUnitTable error :" << queryCreateBaseUnit.lastError();
     }
     //Table Article
@@ -130,6 +139,7 @@ void DbManager::onCreate()
     queryCreateArticle.prepare(CREATE_TABLE_ARTICLE);
     if(!queryCreateArticle.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "Article error :" << queryCreateArticle.lastError();
     }
     //Table paymentMethod
@@ -141,6 +151,7 @@ void DbManager::onCreate()
     queryCreatePaymentMethod.prepare(CREATE_TABLE_PAYMENT_METHOD);
     if(!queryCreatePaymentMethod.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "paymentMethodTable error :" << queryCreatePaymentMethod.lastError();
     }
     //Table cutomer
@@ -156,6 +167,7 @@ void DbManager::onCreate()
     queryCreateCustomer.prepare(CREATE_TABLE_CUSTOMER);
     if(!queryCreateCustomer.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "Customer error :" << queryCreateCustomer.lastError();
     }
     //Table address
@@ -170,6 +182,7 @@ void DbManager::onCreate()
     queryCreateAddress.prepare(CREATE_TABLE_ADDRESS);
     if(!queryCreateAddress.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "Address error :" << queryCreateAddress.lastError();
     }
     //Table link address
@@ -182,6 +195,7 @@ void DbManager::onCreate()
     queryCreateLinkAddress.prepare(CREATE_TABLE_LINK_ADDRESS);
     if(!queryCreateLinkAddress.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "Link address error :" << queryCreateLinkAddress.lastError();
     }
     //Table type address
@@ -193,6 +207,7 @@ void DbManager::onCreate()
     queryCreateTypeAddress.prepare(CREATE_TABLE_TYPE_ADDRESS);
     if(!queryCreateTypeAddress.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "Type address error :" << queryCreateTypeAddress.lastError();
     }
     //Table Phone
@@ -206,6 +221,7 @@ void DbManager::onCreate()
     queryCreatePhone.prepare(CREATE_TABLE_PHONE);
     if(!queryCreatePhone.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "Phone error :" << queryCreatePhone.lastError();
     }
     //Table Link Phone
@@ -218,6 +234,7 @@ void DbManager::onCreate()
     queryCreateLinkPhone.prepare(CREATE_TABLE_LINK_PHONE);
     if(!queryCreateLinkPhone.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "Link Phone error :" << queryCreateLinkPhone.lastError();
     }
     //Table Type Phone
@@ -229,6 +246,7 @@ void DbManager::onCreate()
     queryCreateTypePhone.prepare(CREATE_TABLE_TYPE_PHONE);
     if(!queryCreateTypePhone.exec())
     {
+        this->status = ERROR_BDD;
         qWarning() << "Type Phone error :" << queryCreateTypePhone.lastError();
     }
 }

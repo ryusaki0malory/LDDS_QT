@@ -9,10 +9,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     DbHandler db;
-    if (!db.init("/Users/ryusaki0malory/Desktop/"))
+    //"/Users/ryusaki0malory/Desktop/")
+    if (!db.init(qApp->applicationDirPath()))
     {
-        QMessageBox::information(0, "error", "Initialisation impossible!\nPlease check your LDDS.ini");
-        return a.exec();
+        qDebug() << qApp->applicationDirPath();
+        QMessageBox::information(0, "error", "First initialisation required!\nPlease check Parameter->First init.\nOr your LDDS.ini");
     }
     View mainView(db);
     mainView.show();

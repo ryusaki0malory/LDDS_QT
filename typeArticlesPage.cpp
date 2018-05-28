@@ -1,4 +1,4 @@
-#include "typearticlespage.hpp"
+#include "typeArticlesPage.hpp"
 
 TypeArticlesPage::TypeArticlesPage(DbHandler &newDb, QWidget *parent) : QWidget(parent), db(newDb)
 {

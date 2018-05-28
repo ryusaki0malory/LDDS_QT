@@ -17,7 +17,18 @@ public:
     DbManager();
     ~DbManager();
 
+    typedef enum state
+    {
+        ERROR_INITIALISATION
+        ,ERROR_SERVEUR
+        ,ERROR_BDD
+        ,ERROR_REQUEST
+        ,RUNNING
+
+    }state_t;
+
     bool init(const QString &path); //need the path to LDDS.ini
+    state_t status;
 
 protected:
 

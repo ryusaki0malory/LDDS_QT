@@ -1,4 +1,4 @@
-#include "retaillerpage.hpp"
+#include "retaillerPage.hpp"
 
 RetaillerPage::RetaillerPage(DbHandler &newDb, QWidget *parent) : QWidget(parent), db(newDb)
 {

@@ -110,7 +110,7 @@ void ParameterPage::firstInit()
 
 void ParameterPage::changeLogo()
 {
-
+    
 }
 
 void ParameterPage::changeColor()
