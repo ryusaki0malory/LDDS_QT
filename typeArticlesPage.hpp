@@ -37,6 +37,8 @@ private:
 
     void setGroupBoxAttributes(QGroupBox* groupBox, const QString name);
     void setButtonAttributes(QPushButton* button, const QString toolTip);
+    void setLabelAttributes(QLabel* label);
+    void setLineAttributes(QLineEdit *line);
     void setMessage(const status_t status, const QString message);
     void cleanItem();
     QGroupBox* getHead();
@@ -57,9 +59,13 @@ private:
     QTableView *table;
 
     //bottom
+    QLabel *La_name;
     QLineEdit *Li_name;
+    QLabel *La_ID;
     QLineEdit *Li_ID;
+    QLabel *La_qte;
     QDoubleSpinBox *Li_qte;
+    QLabel *La_baseUnit;
     QComboBox *Li_baseUnit;
     QPushButton *But_valid;
 

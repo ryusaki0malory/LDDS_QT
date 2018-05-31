@@ -59,6 +59,22 @@ void    RetaillerPage::setButtonAttributes(QPushButton* button, const QString to
    button->setStyleSheet("QPushButton {background-color: white; border-width: 1px; border-color: grey; font: bold 14px; padding: 25px; }");
 }
 
+void    RetaillerPage::setLabelAttributes(QLabel* label)
+{
+    label->setFont(QFont("Times", 14, QFont::Bold));
+}
+
+void    RetaillerPage::setLineAttributes(QLineEdit *line)
+{
+
+}
+
+void    RetaillerPage::setLineAttributes(QTextEdit *line)
+{
+
+}
+
+
 //Frames
 
 QGroupBox* RetaillerPage::getHead()
@@ -121,25 +137,33 @@ QGroupBox* RetaillerPage::getBottom()
 {
     QGroupBox *groupBox = new QGroupBox(tr("RetaillerB"));
     this->setGroupBoxAttributes(groupBox, "RetaillerB");
-    QHBoxLayout *Layout = new QHBoxLayout(groupBox);
+    QGridLayout *Layout = new QGridLayout(groupBox);
 
-    this->Li_name = new QLineEdit;
-    this->Li_comment = new QTextEdit;
-    this->Li_ID = new QLineEdit;
+    this->La_name = new QLabel(tr("Name of retailler"));
+    this->Li_name = new QLineEdit();
+    this->La_comment = new QLabel(tr("Comment retailler"));
+    this->Li_comment = new QTextEdit();
+    this->La_ID = new QLabel(tr("ID retailler"));
+    this->Li_ID = new QLineEdit();
+    this->setLabelAttributes(this->La_name);
+    this->setLabelAttributes(this->La_comment);
+    this->setLabelAttributes(this->La_ID);
     this->Li_ID->setReadOnly(true);
     this->Li_ID->setStyleSheet("background: grey");
-    QFormLayout *formLayout = new QFormLayout();
-    formLayout->addRow(tr("&Name of retailler"), Li_name);
-    formLayout->addRow(tr("&Comment retailler"), Li_comment);
-    formLayout->addRow(tr("ID retailler"), Li_ID);
-    Layout->addLayout(formLayout);
 
     this->But_valid = new QPushButton("Valid");
     this->setButtonAttributes(But_valid, "Valid modifications");
     connect(But_valid, SIGNAL(clicked()), this, SLOT(validItem()));
-    Layout->addWidget(But_valid);
 
-     groupBox->setLayout(Layout);
+    Layout->addWidget(La_name, 0, 0);
+    Layout->addWidget(Li_name, 0, 1);
+    Layout->addWidget(La_comment, 1, 0);
+    Layout->addWidget(Li_comment, 1, 1);
+    Layout->addWidget(La_ID, 2, 0);
+    Layout->addWidget(Li_ID, 2, 1);
+    Layout->addWidget(But_valid, 3, 0, 3, 2);
+
+    groupBox->setLayout(Layout);
     return (groupBox);
 }
 
@@ -148,7 +172,6 @@ void RetaillerPage::rowSelected(const QItemSelection& selectionUp, const QItemSe
 {
     (void)selectionUp;
     (void)selectionDown;
-    //QMessageBox::information(this,"", QString::number(indexes.at(0).row()));
 
     QItemSelectionModel *select = table->selectionModel();
     this->Li_ID->setText(select->selectedRows(0).value(0).data().toString());

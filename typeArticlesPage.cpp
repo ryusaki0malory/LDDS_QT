@@ -70,6 +70,16 @@ void    TypeArticlesPage::setButtonAttributes(QPushButton* button, const QString
    button->setStyleSheet("QPushButton {background-color: white; border-width: 1px; border-color: grey; font: bold 14px; padding: 25px; }");
 }
 
+void    TypeArticlesPage::setLabelAttributes(QLabel* label)
+{
+    label->setFont(QFont("Times", 14, QFont::Bold));
+}
+
+void    TypeArticlesPage::setLineAttributes(QLineEdit *line)
+{
+
+}
+
 //Frames
 
 QGroupBox* TypeArticlesPage::getHead()
@@ -133,29 +143,40 @@ QGroupBox* TypeArticlesPage::getBottom()
 {
     QGroupBox *groupBox = new QGroupBox(tr("TypeArticleB"));
     this->setGroupBoxAttributes(groupBox, "TypeArticleB");
-    QHBoxLayout *Layout = new QHBoxLayout(groupBox);
+    QGridLayout *Layout = new QGridLayout(groupBox);
 
+    this->La_ID = new QLabel(tr("ID type article"));
     this->Li_ID = new QLineEdit;
+    this->La_name = new QLabel(tr("Name of type article"));
     this->Li_name = new QLineEdit;
+    this->La_qte = new QLabel(tr("Quantity unit"));
     this->Li_qte = new QDoubleSpinBox;
+    this->La_baseUnit = new QLabel(tr("Base unit"));
     this->Li_baseUnit = new QComboBox;
     this->loadQComboBox();
+    this->setLabelAttributes(this->La_ID);
+    this->setLabelAttributes(this->La_name);
+    this->setLabelAttributes(this->La_qte);
+    this->setLabelAttributes(this->La_baseUnit);
     this->Li_ID->setReadOnly(true);
     this->Li_ID->setStyleSheet("background: grey");
     this->Li_qte->setDecimals(2);
     this->Li_qte->setMaximum(1000000);
-    QFormLayout *formLayout = new QFormLayout();
-    formLayout->addRow(tr("&Name of type article"), Li_name);
-    formLayout->addRow(tr("&Base unit"), Li_baseUnit);
-    formLayout->addRow(tr("&Quantity unit"), Li_qte);
-    formLayout->addRow(tr("ID type article"), Li_ID);
-    Layout->addLayout(formLayout);
 
     this->But_valid = new QPushButton("Valid");
     this->setButtonAttributes(But_valid, "Valid modifications");
     connect(But_valid, SIGNAL(clicked()), this, SLOT(validItem()));
-    Layout->addWidget(But_valid);
 
+
+    Layout->addWidget(La_name, 0, 0);
+    Layout->addWidget(Li_name, 0, 1);
+    Layout->addWidget(La_qte, 1, 0);
+    Layout->addWidget(Li_qte, 1, 1);
+    Layout->addWidget(La_baseUnit, 2, 0);
+    Layout->addWidget(Li_baseUnit, 2, 1);
+    Layout->addWidget(La_ID, 3, 0);
+    Layout->addWidget(Li_ID, 3, 1);
+    Layout->addWidget(But_valid, 4, 0, 4, 2);
     groupBox->setLayout(Layout);
     return (groupBox);
 }

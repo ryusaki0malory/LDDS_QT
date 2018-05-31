@@ -59,6 +59,16 @@ void    BaseUnitPage::setButtonAttributes(QPushButton* button, const QString too
    button->setStyleSheet("QPushButton {background-color: white; border-width: 1px; border-color: grey; font: bold 14px; padding: 25px; }");
 }
 
+void    BaseUnitPage::setLabelAttributes(QLabel* label)
+{
+    label->setFont(QFont("Times", 14, QFont::Bold));
+}
+
+void    BaseUnitPage::setLineAttributes(QLineEdit *line)
+{
+
+}
+
 //Frames
 
 QGroupBox* BaseUnitPage::getHead()
@@ -121,25 +131,33 @@ QGroupBox* BaseUnitPage::getBottom()
 {
     QGroupBox *groupBox = new QGroupBox(tr("Base_unitB"));
     this->setGroupBoxAttributes(groupBox, "Base_unitB");
-    QHBoxLayout *Layout = new QHBoxLayout(groupBox);
+    QGridLayout *Layout = new QGridLayout(groupBox);
 
+    this->La_ID = new QLabel(tr("ID base units"));
     this->Li_ID = new QLineEdit;
+    this->La_name = new QLabel(tr("Name of base unit"));
     this->Li_name = new QLineEdit;
+    this->La_mult = new QLabel(tr("Base unit multiplicator"));
     this->Li_mult = new QDoubleSpinBox;
+    this->setLabelAttributes(this->La_name);
+    this->setLabelAttributes(this->La_mult);
+    this->setLabelAttributes(this->La_ID);
     this->Li_ID->setReadOnly(true);
     this->Li_ID->setStyleSheet("background: grey");
     this->Li_mult->setDecimals(2);
     this->Li_mult->setMaximum(1000000);
-    QFormLayout *formLayout = new QFormLayout();
-    formLayout->addRow(tr("&Name of base unit"), Li_name);
-    formLayout->addRow(tr("&Base unit multiplicator"), Li_mult);
-    formLayout->addRow(tr("ID base unit"), Li_ID);
-    Layout->addLayout(formLayout);
 
     this->But_valid = new QPushButton("Valid");
     this->setButtonAttributes(But_valid, "Valid modifications");
     connect(But_valid, SIGNAL(clicked()), this, SLOT(validItem()));
-    Layout->addWidget(But_valid);
+
+    Layout->addWidget(La_name, 0, 0);
+    Layout->addWidget(Li_name, 0, 1);
+    Layout->addWidget(La_mult, 1, 0);
+    Layout->addWidget(Li_mult, 1, 1);
+    Layout->addWidget(La_ID, 2, 0);
+    Layout->addWidget(Li_ID, 2, 1);
+    Layout->addWidget(But_valid, 3, 0, 3, 2);
 
     groupBox->setLayout(Layout);
     return (groupBox);
