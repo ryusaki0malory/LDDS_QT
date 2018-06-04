@@ -65,7 +65,7 @@ void    FamilyPage::setLabelAttributes(QLabel* label)
 
 void    FamilyPage::setLineAttributes(QLineEdit *line)
 {
-
+    line = NULL;
 }
 
 //Frames

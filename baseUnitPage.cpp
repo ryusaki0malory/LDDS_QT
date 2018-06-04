@@ -66,7 +66,7 @@ void    BaseUnitPage::setLabelAttributes(QLabel* label)
 
 void    BaseUnitPage::setLineAttributes(QLineEdit *line)
 {
-
+     line =NULL;
 }
 
 //Frames

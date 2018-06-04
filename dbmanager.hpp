@@ -121,7 +121,7 @@ protected:
     const QString KEY_ID_ADDRESS_LINK_ADDRESS = "IDAddress";
     const QString KEY_D_MODIF_LINK_ADDRESS = "Modif";
 
-    //TypeAddress
+    //Table TypeAddress
     const QString TABLE_TYPE_ADDRESS = "typeAddress";
     const QString KEY_ID_TYPE_ADDRESS = "IDType";
     const QString KEY_NAME_TYPE_ADDRESS = "NameType";
@@ -140,13 +140,20 @@ protected:
     const QString KEY_ID_LINK_PHONE = "IDLink";
     const QString KEY_ID_CUSTOMER_LINK_PHONE = "IDCustomerLink";
     const QString KEY_ID_PHONE_LINK_PHONE = "IDPhoneLink";
-    const QString KEY_D_LINK_PHONE = "ModifLink";
+    const QString KEY_D_MODIF_LINK_PHONE = "ModifLink";
 
-    //TypePhone
+    //Table TypePhone
     const QString TABLE_TYPE_PHONE = "typePhone";
     const QString KEY_ID_TYPE_PHONE = "IDType";
     const QString KEY_NAME_TYPE_PHONE = "NameType";
     const QString KEY_D_MODIF_TYPE_PHONE = "ModifType";
+
+    //Table Parameter
+    const QString TABLE_PARAMETER = "parameter";
+    const QString KEY_ID_PARAMETER = "IDParameter";
+    const QString KEY_IMAGE_PARAMETER = "ImageParameter";
+    const QString KEY_D_MODIF_PARAMETER = "ModifParameter";
+
 
 };
 

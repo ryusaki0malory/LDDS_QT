@@ -77,7 +77,7 @@ void    TypeArticlesPage::setLabelAttributes(QLabel* label)
 
 void    TypeArticlesPage::setLineAttributes(QLineEdit *line)
 {
-
+     line =NULL;
 }
 
 //Frames

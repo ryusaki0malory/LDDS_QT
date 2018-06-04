@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include <fstream>
 #include <QDebug>
+#include <QBuffer>
 #include "tools.hpp"
 #include "dbhandler.hpp"
 

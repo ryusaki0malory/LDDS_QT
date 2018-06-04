@@ -111,7 +111,7 @@ void    ArticlePage::setLabelAttributes(QLabel* label)
 
 void    ArticlePage::setLineAttributes(QLineEdit *line)
 {
-
+     line =NULL;
 }
 
 //Frames

@@ -229,7 +229,7 @@ void DbManager::onCreate()
                     KEY_ID_LINK_PHONE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     KEY_ID_CUSTOMER_LINK_PHONE + " INTEGER," +
                     KEY_ID_PHONE_LINK_PHONE + " INTEGER," +
-                    KEY_D_LINK_PHONE + " TEXT);";
+                    KEY_D_MODIF_LINK_PHONE + " TEXT);";
     QSqlQuery queryCreateLinkPhone;
     queryCreateLinkPhone.prepare(CREATE_TABLE_LINK_PHONE);
     if(!queryCreateLinkPhone.exec())
@@ -248,5 +248,17 @@ void DbManager::onCreate()
     {
         this->status = ERROR_BDD;
         qWarning() << "Type Phone error :" << queryCreateTypePhone.lastError();
+    }
+    //Table Parameter
+    QString CREATE_TABLE_PARAMETER = "CREATE TABLE IF NOT EXISTS " + TABLE_PARAMETER + " ( " +
+                    KEY_ID_PARAMETER + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_IMAGE_PARAMETER + " BLOB," +
+                    KEY_D_MODIF_PARAMETER + " TEXT);";
+    QSqlQuery queryCreateParameter;
+    queryCreateParameter.prepare(CREATE_TABLE_PARAMETER);
+    if(!queryCreateParameter.exec())
+    {
+        this->status = ERROR_BDD;
+        qWarning() << "Parameter error :" << queryCreateParameter.lastError();
     }
 }

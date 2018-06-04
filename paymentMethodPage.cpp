@@ -65,7 +65,7 @@ void    PaymentMethodPage::setLabelAttributes(QLabel* label)
 
 void    PaymentMethodPage::setLineAttributes(QLineEdit *line)
 {
-
+     line =NULL;
 }
 
 //Frames

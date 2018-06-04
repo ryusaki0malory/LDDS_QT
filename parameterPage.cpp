@@ -110,7 +110,38 @@ void ParameterPage::firstInit()
 
 void ParameterPage::changeLogo()
 {
+    QString filename = QFileDialog::getOpenFileName(this, tr("Choose new logo"),"", tr("Images (*.png *.jpg *.jpeg *.bmp *.gif)"));
 
+    if (QString::compare(filename, QString()) != 0)
+    {
+        QImage image;
+        bool valid = image.load(filename);
+        if (valid)
+        {
+            QPixmap pixmapTempo;
+            pixmapTempo = pixmapTempo.fromImage(image);
+            QByteArray bArray;
+            QImage imageTempo(pixmapTempo.toImage());
+            QBuffer buffer(&bArray);
+            buffer.open(QIODevice::WriteOnly);
+            imageTempo.save(&buffer, "PNG");
+            if (this->db.parameterExist() == false)
+            {
+                if (this->db.addParameter(bArray))
+                {
+
+                }
+            }
+            else
+            {
+                if (this->db.updateParameter(bArray))
+                {
+
+                 }
+            }
+        }
+
+    }
 }
 
 void ParameterPage::changeColor()

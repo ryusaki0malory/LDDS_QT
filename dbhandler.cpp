@@ -867,4 +867,80 @@ bool DbHandler::deleteArticle(const int &ID)
     }
     return (success);
 }
+//Parameter
+QString const DbHandler::parameterExist(void) const
+{
+    QSqlQuery query;
+    QString SELECT = "SELECT TOP 1 " +
+                        KEY_ID_PARAMETER + "," +
+                        KEY_IMAGE_PARAMETER +
+                    " FROM " +
+                        TABLE_PARAMETER;
 
+    if(query.exec(SELECT))
+    {
+        if (query.next())
+        {
+           return (query.value(KEY_ID_PARAMETER).toString());
+        }
+        else
+        {
+            return ("");
+        }
+    }
+    else
+    {
+        qWarning() << "parameterExist error :" << query.lastError();
+    }
+    return ("");
+}
+bool DbHandler::addParameter(const QByteArray &image)
+{
+    bool success = false;
+    QSqlQuery query;
+    query.prepare("INSERT INTO " +
+                        TABLE_PARAMETER +
+                  " (" +
+                        KEY_IMAGE_PARAMETER + "," +
+                        KEY_D_MODIF_PARAMETER +
+                  ") VALUES (:" +
+                        KEY_IMAGE_PARAMETER + "," +
+                        " DATETIME('now'))");
+    query.bindValue(":"+ KEY_IMAGE_PARAMETER, image);
+    if(query.exec())
+    {
+        success = true;
+    }
+    else
+    {
+        qWarning() << "addParameter error :" << query.lastError();
+    }
+    return (success);
+}
+bool DbHandler::updateParameter(const QByteArray &image)
+{
+    bool success(false);
+    QSqlQuery query;
+    QString ID_parameter("");
+    if ((ID_parameter = this->parameterExist()) != "")
+    {
+        query.prepare("UPDATE " +
+                            TABLE_PARAMETER +
+                      " SET " +
+                            KEY_IMAGE_PARAMETER + " = :" + KEY_IMAGE_PARAMETER + "," +
+                            KEY_D_MODIF_PARAMETER + " =  DATETIME('now') " +
+                      "WHERE " +
+                            KEY_ID_PARAMETER + " = :" + KEY_ID_PARAMETER );
+        query.bindValue(":"+ KEY_IMAGE_PARAMETER, image);
+        query.bindValue(":"+ KEY_ID_PARAMETER, ID_parameter);
+        if(query.exec())
+        {
+            success = true;
+        }
+        else
+        {
+            qWarning() << "updateParameterMethod error :" << query.lastError();
+        }
+    }
+    return (success);
+}

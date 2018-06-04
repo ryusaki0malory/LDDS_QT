@@ -72,12 +72,12 @@ void    CustomerPage::setLabelAttributes(QLabel* label)
 
 void    CustomerPage::setLineAttributes(QLineEdit *line)
 {
-
+     line =NULL;
 }
 
 void    CustomerPage::setLineAttributes(QTextEdit *line)
 {
-
+     line =NULL;
 }
 
 //Frames

@@ -66,12 +66,12 @@ void    RetaillerPage::setLabelAttributes(QLabel* label)
 
 void    RetaillerPage::setLineAttributes(QLineEdit *line)
 {
-
+    line =NULL;
 }
 
 void    RetaillerPage::setLineAttributes(QTextEdit *line)
 {
-
+     line =NULL;
 }
 
 
