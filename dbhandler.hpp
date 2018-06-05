@@ -18,7 +18,6 @@ class DbHandler: public DbManager
 public:
     DbHandler();
     ~DbHandler();
-    QString getPathLogo();
     //family
     bool addFamily(const QString &family);
     void getFamily(QStandardItemModel *modele);

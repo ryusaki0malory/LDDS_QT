@@ -46,7 +46,7 @@ void ArticlePage::cleanItem()
     this->Li_family->setCurrentIndex(-1);
     this->Li_retailer->setCurrentIndex(-1);
     this->Li_type->setCurrentIndex(-1);
-    //this->Li_image->setCurrentIndex(-1);
+    //this->Li_image->set;
 }
 
 void    ArticlePage::loadQComboBox()
@@ -111,7 +111,7 @@ void    ArticlePage::setLabelAttributes(QLabel* label)
 
 void    ArticlePage::setLineAttributes(QLineEdit *line)
 {
-     line =NULL;
+     line = NULL;
 }
 
 //Frames
@@ -152,9 +152,9 @@ QGroupBox* ArticlePage::getList()
     Layout->addWidget(label);
 
     //The list
-    this->modele = new QStandardItemModel(0, 12);
+    this->modele = new QStandardItemModel(0, 13);
     QStringList lst;
-    lst << "Id" << "Name article" << "Qte. article" << "Family" << "IdFamily" << "Price article" << "Retailer" << "IDRetailler" << "Type" << " IDType" << "Comment" << "Image";
+    lst << "Id" << "Name article" << "Qte. article" << "Family" << "IdFamily" << "Price article" << "Retailer" << "IDRetailler" << "Type" << " IDType" << "Comment" << "Image" << "ByteImage";
     this->modele->setHorizontalHeaderLabels(lst);
     this->db.getArticle(this->modele);
     this->table = new QTableView;
@@ -165,6 +165,7 @@ QGroupBox* ArticlePage::getList()
     table->setColumnHidden(4, true);
     table->setColumnHidden(7, true);
     table->setColumnHidden(9, true);
+    table->setColumnHidden(12, true);
     connect(table->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(rowSelected(const QItemSelection&, const QItemSelection&)));
     Layout->addWidget(table);
 
@@ -259,7 +260,12 @@ void ArticlePage::rowSelected(const QItemSelection& selectionUp, const QItemSele
     this->Li_retailer->setCurrentIndex(Li_retailer->findData(select->selectedRows(7).value(0).data().toString()));
     this->Li_type->setCurrentIndex(Li_type->findData(select->selectedRows(9).value(0).data().toString()));
     this->Li_comment->setText(select->selectedRows(10).value(0).data().toString());
-    //this->Li_image->setPixmap(select->selectedRows(11).value(0).data<QPixmap>());
+    QString imageString(select->selectedRows(12).value(0).data().toString());
+//    qDebug() << imageString;
+    QByteArray imageArray(imageString.toLocal8Bit());
+    QImage image = QImage::fromData(imageArray, "PNG");
+    image = image.scaledToWidth(this->Li_image->width(), Qt::SmoothTransformation);
+    this->Li_image->setPixmap(QPixmap::fromImage(image));
 }
 
 void ArticlePage::addItem()

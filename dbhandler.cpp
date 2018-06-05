@@ -10,11 +10,6 @@ DbHandler::~DbHandler()
 
 }
 
-QString DbHandler::getPathLogo()
-{
-    return (this->param.LOGO_PATH);
-}
-
 //family
 void DbHandler::getFamily(QStandardItemModel *modele)
 {
@@ -663,6 +658,7 @@ void DbHandler::getArticle(QStandardItemModel *modele)
             QString IDTYPE = query.value(KEY_ID_TYPE_ARTICLE).toString();
             QString COMMENT = query.value(KEY_COMMENT_ARTICLE).toString();
             QByteArray BIT_ARRAY_IMAGE = query.value(KEY_IMAGE_ARTICLE).toByteArray();
+            QString ARRAY_IMAGE(BIT_ARRAY_IMAGE);
             modele->setItem(modele->rowCount(),0, new QStandardItem(ID));
             modele->setItem(modele->rowCount() -1 ,1, new QStandardItem(NAME));
             modele->setItem(modele->rowCount() -1 ,2, new QStandardItem(QTE));
@@ -677,6 +673,7 @@ void DbHandler::getArticle(QStandardItemModel *modele)
             QStandardItem *ITEM_IMAGE = new QStandardItem();
             ITEM_IMAGE->setData(QVariant(QPixmap::fromImage(IMAGE)), Qt::DecorationRole);
             modele->setItem(modele->rowCount() -1 ,11, ITEM_IMAGE);
+            modele->setItem(modele->rowCount() -1 ,12, new QStandardItem(ARRAY_IMAGE));
             //query FAMILY
             QSqlQuery queryFamily;
             queryFamily.prepare("SELECT " +
