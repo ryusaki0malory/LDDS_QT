@@ -58,7 +58,6 @@ public slots:
     void emitLoadPARAMETER_PAGE();
     void emitLoadSTOCK_PAGE();
     void emitLoadACCOUNT_PAGE();
-    void defineLogo();
 };
 
 #endif // MAINPAGE_HPP

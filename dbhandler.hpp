@@ -62,7 +62,8 @@ public:
     //parameter
     QString const parameterExist(void) const;
     bool addParameter(const QByteArray &image);
-    bool updateParameter(const QByteArray &image);
+    bool updateParameter(const QString &ID_parameter, const QByteArray &image);
+    QByteArray const getImageParameter(void) const;
 
 private :
 

@@ -40,7 +40,6 @@ protected:
         QString BDD_VER;
         QString BDD_LAST_UPDATE;
         QString VER_APP;
-        QString LOGO_PATH;
     } paramInit_t;
 
     void onCreate();

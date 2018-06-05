@@ -36,7 +36,6 @@ bool DbManager::init(const QString &path)
                 if (str1 == "BDD_VER") param.BDD_VER = list.at(1);
                 if (str1 == "BDD_LAST_UPDATE") param.BDD_LAST_UPDATE = list.at(1);
                 if (str1 == "VER_APP") param.VER_APP = list.at(1);
-                if (str1 == "LOGO_PATH") param.LOGO_PATH = list.at(1);
             }
         }
 

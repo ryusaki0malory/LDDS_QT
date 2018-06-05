@@ -216,19 +216,6 @@ QGroupBox* ArticlePage::getBottom()
     this->Li_prix->setDecimals(2);
     this->Li_prix->setMaximum(1000000);
 
-//    QString path = this->db.getPathLogo();
-//    if (QString::compare(path,QString()) != 0)
-//    {
-//        QImage image;
-//        bool valid = image.load(path);
-
-//        if (valid)
-//        {
-//            //image = image.scaledToWidth(this->_logo->width(), Qt::SmoothTransformation);
-//            this->Li_image->setPixmap(QPixmap::fromImage(image));
-//        }
-//    }
-
     this->But_valid = new QPushButton("Valid");
     this->setButtonAttributes(But_valid, "Valid modifications");
     connect(But_valid, SIGNAL(clicked()), this, SLOT(validItem()));

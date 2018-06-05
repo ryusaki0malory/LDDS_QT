@@ -672,8 +672,6 @@ void DbHandler::getArticle(QStandardItemModel *modele)
             modele->setItem(modele->rowCount() -1 ,9, new QStandardItem(IDTYPE));
             modele->setItem(modele->rowCount() -1 ,10, new QStandardItem(COMMENT));
             //Image
-            QPixmap PIXMAP_IMAGE = QPixmap();
-            PIXMAP_IMAGE.loadFromData( BIT_ARRAY_IMAGE);
             QImage IMAGE(1920,1080,QImage::Format_Indexed8);
             IMAGE = QImage::fromData(BIT_ARRAY_IMAGE,"PNG");
             QStandardItem *ITEM_IMAGE = new QStandardItem();
@@ -871,11 +869,12 @@ bool DbHandler::deleteArticle(const int &ID)
 QString const DbHandler::parameterExist(void) const
 {
     QSqlQuery query;
-    QString SELECT = "SELECT TOP 1 " +
+    QString SELECT = "SELECT " +
                         KEY_ID_PARAMETER + "," +
                         KEY_IMAGE_PARAMETER +
                     " FROM " +
-                        TABLE_PARAMETER;
+                        TABLE_PARAMETER +
+                    " LIMIT 1";
 
     if(query.exec(SELECT))
     {
@@ -917,12 +916,11 @@ bool DbHandler::addParameter(const QByteArray &image)
     }
     return (success);
 }
-bool DbHandler::updateParameter(const QByteArray &image)
+bool DbHandler::updateParameter(const QString &ID_parameter, const QByteArray &image)
 {
     bool success(false);
     QSqlQuery query;
-    QString ID_parameter("");
-    if ((ID_parameter = this->parameterExist()) != "")
+    if ( ID_parameter != "")
     {
         query.prepare("UPDATE " +
                             TABLE_PARAMETER +
@@ -944,3 +942,26 @@ bool DbHandler::updateParameter(const QByteArray &image)
     }
     return (success);
 }
+ QByteArray const DbHandler::getImageParameter(void) const
+ {
+     QSqlQuery query;
+     QString SELECT = "SELECT " +
+                         KEY_IMAGE_PARAMETER +
+                     " FROM " +
+                         TABLE_PARAMETER
+                    + " LIMIT 1";
+
+     if(query.exec(SELECT))
+     {
+         if (query.next())
+         {
+             QByteArray BIT_ARRAY_IMAGE = query.value(KEY_IMAGE_PARAMETER).toByteArray();
+             return (BIT_ARRAY_IMAGE);
+         }
+     }
+     else
+     {
+         qWarning() << "Article error :" << query.lastError();
+     }
+    return (NULL);
+ }

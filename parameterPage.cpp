@@ -94,7 +94,6 @@ void ParameterPage::firstInit()
             file << "BDD_LAST_UPDATE=20180101\n";
             file << "//APPLICATION\n";
             file << "VER_APP=1.0\n";
-            file << "LOGO_PATH=/Users/ryusaki0malory/Desktop/LDDS_BDD/img.jpg\n";
             message.setText("First init ok, please restart the application!");
             message.exec();
     }
@@ -125,7 +124,8 @@ void ParameterPage::changeLogo()
             QBuffer buffer(&bArray);
             buffer.open(QIODevice::WriteOnly);
             imageTempo.save(&buffer, "PNG");
-            if (this->db.parameterExist() == false)
+            QString IDParameter("");
+            if ((IDParameter = this->db.parameterExist()) == "")
             {
                 if (this->db.addParameter(bArray))
                 {
@@ -134,7 +134,7 @@ void ParameterPage::changeLogo()
             }
             else
             {
-                if (this->db.updateParameter(bArray))
+                if (this->db.updateParameter(IDParameter, bArray))
                 {
 
                  }

@@ -28,16 +28,15 @@ MainPage::MainPage(DbHandler &newDb, QWidget *parent) : QWidget(parent), db(newD
 
  void MainPage::setLogo()
  {
-    QString path = this->db.getPathLogo();
-    if (QString::compare(path,QString()) != 0)
+    QByteArray byteArray = this->db.getImageParameter();
+    if (!byteArray.isNull())
     {
         QImage image;
-        bool valid = image.load(path);
-
-        if (valid)
+        image = QImage::fromData(byteArray,"PNG");
+        if (!image.isNull())
         {
-            //image = image.scaledToWidth(this->_logo->width(), Qt::SmoothTransformation);
-            this->_logo->setPixmap(QPixmap::fromImage(image));
+                image = image.scaledToWidth(this->_logo->width() / 2, Qt::SmoothTransformation);
+                this->_logo->setPixmap(QPixmap::fromImage(image));
         }
     }
  }
@@ -152,11 +151,6 @@ MainPage::MainPage(DbHandler &newDb, QWidget *parent) : QWidget(parent), db(newD
      connect(baseProducts, SIGNAL(clicked()), this, SLOT(emitLoadBASE_PAGE()));
      LayoutArticles->addWidget(baseProducts, 2, 0);
 
-     QPushButton *changeLogo = new QPushButton("Change logo");
-     this->setButtonAttributes(changeLogo,"Change the logo");
-     connect(changeLogo, SIGNAL(clicked()), this, SLOT(defineLogo()));
-     LayoutArticles->addWidget(changeLogo, 2, 1);
-
      //logo
      this->_logo = new QLabel();
      LayoutArticles->addWidget(this->_logo, 0, 3, 3, 3);
@@ -183,22 +177,6 @@ MainPage::MainPage(DbHandler &newDb, QWidget *parent) : QWidget(parent), db(newD
  }
 
  //SLOTS
- void MainPage::defineLogo()
- {
-    QString filename = QFileDialog::getOpenFileName(this, tr("Choose new logo"),"", tr("Images (*.png *.jpg *.jpeg *.bmp *.gif)"));
-
-    if (QString::compare(filename, QString()) != 0)
-    {
-        QImage image;
-        bool valid = image.load(filename);
-
-        if (valid)
-        {
-            image = image.scaledToWidth(this->_logo->width(), Qt::SmoothTransformation);
-            this->_logo->setPixmap(QPixmap::fromImage(image));
-        }
-    }
- }
  void MainPage::emitLoadRETAILLER_PAGE()
  {
     emit loadPageParent(Tools_LDDS::RETAILLER_PAGE);
