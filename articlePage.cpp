@@ -260,12 +260,15 @@ void ArticlePage::rowSelected(const QItemSelection& selectionUp, const QItemSele
     this->Li_retailer->setCurrentIndex(Li_retailer->findData(select->selectedRows(7).value(0).data().toString()));
     this->Li_type->setCurrentIndex(Li_type->findData(select->selectedRows(9).value(0).data().toString()));
     this->Li_comment->setText(select->selectedRows(10).value(0).data().toString());
-    QString imageString(select->selectedRows(12).value(0).data().toString());
-//    qDebug() << imageString;
-    QByteArray imageArray(imageString.toLocal8Bit());
-    QImage image = QImage::fromData(imageArray, "PNG");
-    image = image.scaledToWidth(this->Li_image->width(), Qt::SmoothTransformation);
-    this->Li_image->setPixmap(QPixmap::fromImage(image));
+    QVariant ITEM_IMAGE(select->selectedRows(11).value(0).data());
+    if (ITEM_IMAGE.isNull())
+    {
+        qDebug() << "Error Qvariant";
+    }
+    //QVariant variant = ITEM_IMAGE.data(Qt::DisplayRole);
+   // QPixmap image = ITEM_IMAGE.value<QPixmap>();
+    //image = image.scaledToWidth(this->Li_image->width(), Qt::SmoothTransformation);
+    //this->Li_image->setPixmap(image);
 }
 
 void ArticlePage::addItem()
