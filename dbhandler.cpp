@@ -742,6 +742,35 @@ void DbHandler::getArticle(QStandardItemModel *modele)
         qWarning() << "Article error :" << query.lastError();
     }
 }
+QByteArray DbHandler::getImageArticle(const int &ID_article)
+{
+    QSqlQuery query;
+    query.prepare( "SELECT " +
+                        KEY_IMAGE_ARTICLE +
+                    " FROM " +
+                        TABLE_ARTICLE +
+                    " WHERE " +
+                        KEY_ID_ARTICLE + " = :" + KEY_ID_ARTICLE +
+                    " LIMIT 1");
+    query.bindValue(":"+ KEY_ID_ARTICLE, ID_article);
+    if(query.exec())
+    {
+        if (query.next())
+        {
+           return (query.value(KEY_IMAGE_ARTICLE).toByteArray());
+        }
+        else
+        {
+            return ("");
+        }
+    }
+    else
+    {
+        qWarning() << "getimageArticle error :" << query.lastError();
+    }
+
+    return ("");
+}
 bool DbHandler::addArticle(const QString &name,
                            const double &price,
                            const double &qte,

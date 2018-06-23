@@ -55,6 +55,7 @@ public:
     //Article
     bool addArticle(const QString &name, const double &price, const double &qte, const int &family, const int &retailer, const int &type, const QString &comment, const QByteArray &image);
     void getArticle(QStandardItemModel *modele);
+    QByteArray getImageArticle(const int &ID_article);
     bool updateArticle(const int &ID, const QString &name, const double &price, const double &qte, const int &family, const int &retailer, const int &type, const QString &comment, const QByteArray &image);
     bool deleteArticle(const int &ID);
 

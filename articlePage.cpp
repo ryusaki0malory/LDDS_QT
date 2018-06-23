@@ -152,9 +152,9 @@ QGroupBox* ArticlePage::getList()
     Layout->addWidget(label);
 
     //The list
-    this->modele = new QStandardItemModel(0, 13);
+    this->modele = new QStandardItemModel(0, 12);
     QStringList lst;
-    lst << "Id" << "Name article" << "Qte. article" << "Family" << "IdFamily" << "Price article" << "Retailer" << "IDRetailler" << "Type" << " IDType" << "Comment" << "Image" << "ByteImage";
+    lst << "Id" << "Name article" << "Qte. article" << "Family" << "IdFamily" << "Price article" << "Retailer" << "IDRetailler" << "Type" << " IDType" << "Comment" << "Image";
     this->modele->setHorizontalHeaderLabels(lst);
     this->db.getArticle(this->modele);
     this->table = new QTableView;
@@ -260,15 +260,11 @@ void ArticlePage::rowSelected(const QItemSelection& selectionUp, const QItemSele
     this->Li_retailer->setCurrentIndex(Li_retailer->findData(select->selectedRows(7).value(0).data().toString()));
     this->Li_type->setCurrentIndex(Li_type->findData(select->selectedRows(9).value(0).data().toString()));
     this->Li_comment->setText(select->selectedRows(10).value(0).data().toString());
-    QVariant ITEM_IMAGE(select->selectedRows(11).value(0).data());
-    if (ITEM_IMAGE.isNull())
-    {
-        qDebug() << "Error Qvariant";
-    }
-    //QVariant variant = ITEM_IMAGE.data(Qt::DisplayRole);
-   // QPixmap image = ITEM_IMAGE.value<QPixmap>();
-    //image = image.scaledToWidth(this->Li_image->width(), Qt::SmoothTransformation);
-    //this->Li_image->setPixmap(image);
+    QByteArray byteArray = this->db.getImageArticle(this->Li_ID->text().toInt());
+    QImage image(this->Li_image->width(),this->Li_image->height(),QImage::Format_Indexed8);
+    image = QImage::fromData(byteArray,"PNG");
+
+    this->Li_image->setPixmap(QPixmap::fromImage(image));
 }
 
 void ArticlePage::addItem()
