@@ -65,6 +65,12 @@ public:
     bool updateParameter(const QString &ID_parameter, const QByteArray &image);
     QByteArray const getImageParameter(void) const;
 
+    //Customer
+    bool addCustomer(const QString &LastName, const QString &FirstName, const int &IDAccount, const QString &address, const QString &postalCode, const QString &city, const QString &comment, const QString &Phone, const QString &Mail);
+    void getCustomer(QStandardItemModel *modele);
+    bool updateCustomer(const int &ID, const QString &LastName, const QString &FirstName, const int &IDAccount, const QString &address, const QString &postalCode, const QString &city, const QString &comment, const QString &Phone, const QString &Mail);
+    bool deleteCustomer(const int &ID);
+
 private :
 
 };

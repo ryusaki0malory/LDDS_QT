@@ -989,3 +989,70 @@ bool DbHandler::updateParameter(const QString &ID_parameter, const QByteArray &i
      }
     return (NULL);
  }
+ //Customer
+ bool DbHandler::addCustomer(const QString &LastName, const QString &FirstName, const int &IDAccount, const QString &address, const QString &postalCode, const QString &city, const QString &comment, const QString &Phone, const QString &Mail)
+{
+     bool success = false;
+     int ID_customer;
+     QSqlQuery query;
+     query.prepare("INSERT INTO " +
+                         TABLE_CUSTOMER +
+                   " (" +
+                         KEY_LAST_NAME_CUSTOMER + "," +
+                         KEY_FIRST_NAME_CUSTOMER + "," +
+                         KEY_COMMENT_CUSTOMER + "," +
+                         KEY_ACCOUNT_ID_CUSTOMER + "," +
+                         KEY_MAIL_CUSTOMER + "," +
+                         KEY_D_MODIF_CUSTOMER +
+                   ") VALUES (:" +
+                         KEY_LAST_NAME_CUSTOMER + "," +
+                         " :" + KEY_FIRST_NAME_CUSTOMER + "," +
+                         " :" + KEY_COMMENT_CUSTOMER + "," +
+                         " :" + KEY_ACCOUNT_ID_CUSTOMER + "," +
+                         " :" + KEY_MAIL_CUSTOMER + "," +
+                         " DATETIME('now'))");
+     query.bindValue(":"+ KEY_LAST_NAME_CUSTOMER, LastName);
+     query.bindValue(":"+ KEY_FIRST_NAME_CUSTOMER, FirstName);
+     query.bindValue(":"+ KEY_COMMENT_CUSTOMER, comment);
+     query.bindValue(":"+ KEY_ACCOUNT_ID_CUSTOMER, IDAccount);
+     query.bindValue(":"+ KEY_MAIL_CUSTOMER, Mail);
+     if(query.exec())
+     {
+         success = true;
+     }
+     else
+     {
+         qWarning() << "addCustomer error :" << query.lastError();
+     }
+     QSqlQuery querySelectID;
+     const QString SELECT = "SELECT last_insert_rowid() AS ID FROM " + TABLE_CUSTOMER;
+     if(querySelectID.exec(SELECT))
+     {
+         if (querySelectID.next())
+         {
+            ID_customer = querySelectID.value("ID").toInt();
+            qDebug() << ID_customer;
+         }
+         else
+         {
+             qWarning() << "getIdCustomerNext error :";
+         }
+     }
+     else
+     {
+         qWarning() << "getIdCustomer error :" << querySelectID.lastError();
+     }
+
+     return (success);
+ }
+ void DbHandler::getCustomer(QStandardItemModel *modele)
+ {
+
+ }
+ bool DbHandler::updateCustomer(const int &ID, const QString &LastName, const QString &FirstName, const int &IDAccount, const QString &address, const QString &postalCode, const QString &city, const QString &comment, const QString &Phone, const QString &Mail)
+ {
+ }
+ bool DbHandler::deleteCustomer(const int &ID)
+ {
+
+ }
